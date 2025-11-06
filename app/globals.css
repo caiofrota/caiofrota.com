@@ -1,2 +1,20 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
+
+@layer components {
+  .cf-accent {
+    @apply from-[#253160] via-[#4f4c9a] to-[#318ac7] dark:from-[#0098ac] dark:via-[#318ac7] dark:to-[#4f4c9a];
+  }
+
+  .cf-ring {
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neutral-900 dark:focus:ring-neutral-100 focus:ring-offset-white dark:focus:ring-offset-black;
+  }
+
+  .cf-card {
+    @apply rounded-3xl border border-neutral-200 bg-white p-6 shadow-xl shadow-neutral-800/5 dark:border-neutral-800 dark:bg-neutral-900;
+  }
+
+  .cf-pill {
+    @apply inline-flex items-center gap-2 rounded-full bg-linear-to-r px-3 py-1 text-xs font-semibold text-white;
+  }
+}

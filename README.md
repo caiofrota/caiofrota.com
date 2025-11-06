@@ -1,2 +1,2 @@
-# caiofrota.com.br
+# caiofrota.com
 My personal website project!

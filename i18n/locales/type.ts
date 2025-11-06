@@ -5,4 +5,15 @@ export type Type = {
     resume: string;
     contact: string;
   };
+  hero: {
+    brief: string;
+    subtitle: string;
+    me: {
+      availability: string;
+    };
+    cta: {
+      primary: string;
+      secondary: string;
+    };
+  };
 };

@@ -2,10 +2,12 @@
 import { Navbar } from "components/navbar";
 import { ScrollToTop } from "components/scroll-to-top";
 import { useTranslator } from "i18n";
+import { Footer } from "./footer";
 
 type Props = {
   children: React.ReactNode;
 };
+
 export default function Layout({ children }: Props) {
   const { t } = useTranslator();
 
@@ -41,7 +43,8 @@ export default function Layout({ children }: Props) {
       <main className="relative min-h-screen bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
         <Navbar navItems={navItems} onNavClick={onNavClick} />
         {children}
-        <ScrollToTop />
+        <Footer />
+        <ScrollToTop aboveFooter={true} />
       </main>
     </div>
   );

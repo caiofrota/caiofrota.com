@@ -32,4 +32,7 @@ export const en: Type = {
       p5: "Welcome aboard!",
     },
   },
+  footer: {
+    madeWith: (year: number) => `© 2025-${year} Caio Frota. Since 2008 building solutions with love and coffee!`,
+  },
 };

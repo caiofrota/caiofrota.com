@@ -30,4 +30,7 @@ export type Type = {
       p5: string;
     };
   };
+  footer: {
+    madeWith: (year: number) => string;
+  };
 };

@@ -32,4 +32,7 @@ export const pt_BR: Type = {
       p5: "Seja bem-vindo!",
     },
   },
+  footer: {
+    madeWith: (year: number) => `© 2008-${year} Caio Frota. Desde 2008 construindo soluções com amor e café!`,
+  },
 };

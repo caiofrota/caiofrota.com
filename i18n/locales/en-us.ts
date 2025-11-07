@@ -32,6 +32,28 @@ export const en: Type = {
       p5: "Welcome aboard!",
     },
   },
+  contact: {
+    title: "Get in Touch",
+    subtitle: 'Partnerships, quick consults, complex integrations, or just a simple "Hi"!',
+    kicker: "Let's Chat",
+    shortcut: "Also find me on",
+    text: "I also help companies with quick architecture & integrations consulting and performance diagnostics.",
+    form: {
+      name: {
+        label: "Your Name",
+        placeholder: "How should I call you?",
+      },
+      email: {
+        label: "Email",
+        placeholder: "you@email.com",
+      },
+      message: {
+        label: "Message",
+        placeholder: "Tell me more about your challenge...",
+      },
+      send: "Send",
+    },
+  },
   footer: {
     madeWith: (year: number) => `© 2025-${year} Caio Frota. Since 2008 building solutions with love and coffee!`,
   },

@@ -30,6 +30,28 @@ export type Type = {
       p5: string;
     };
   };
+  contact: {
+    title: string;
+    subtitle: string;
+    kicker: string;
+    shortcut: string;
+    text: string;
+    form: {
+      name: {
+        label: string;
+        placeholder: string;
+      };
+      email: {
+        label: string;
+        placeholder: string;
+      };
+      message: {
+        label: string;
+        placeholder: string;
+      };
+      send: string;
+    };
+  };
   footer: {
     madeWith: (year: number) => string;
   };

@@ -32,6 +32,28 @@ export const pt_BR: Type = {
       p5: "Seja bem-vindo!",
     },
   },
+  contact: {
+    title: "Contato",
+    subtitle: 'Parcerias, consultorias rápidas, integrações complexas ou apenas um "Oi"!',
+    kicker: "Vamos Conversar",
+    shortcut: "Também me siga em",
+    text: "Estou sempre aberto a novas oportunidades e colaborações. Se você tem um projeto em mente ou apenas quer dizer olá, não hesite em entrar em contato!",
+    form: {
+      name: {
+        label: "Nome",
+        placeholder: "Como devo chamá-lo?",
+      },
+      email: {
+        label: "E-mail",
+        placeholder: "voce@email.com",
+      },
+      message: {
+        label: "Mensagem",
+        placeholder: "Conte-me mais sobre seu desafio...",
+      },
+      send: "Enviar",
+    },
+  },
   footer: {
     madeWith: (year: number) => `© 2008-${year} Caio Frota. Desde 2008 construindo soluções com amor e café!`,
   },

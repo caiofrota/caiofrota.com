@@ -18,4 +18,16 @@ export type Type = {
       secondary: string;
     };
   };
+  about: {
+    title: string;
+    subtitle: string;
+    kicker: string;
+    text: {
+      p1: string;
+      p2: string;
+      p3: string;
+      p4: string;
+      p5: string;
+    };
+  };
 };

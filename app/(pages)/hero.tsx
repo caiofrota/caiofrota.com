@@ -1,5 +1,4 @@
 "use client";
-
 import { Card } from "components/card";
 import { Pill } from "components/pill";
 import { motion } from "framer-motion";
@@ -11,7 +10,7 @@ export function Hero() {
   const { t, language, changeLanguage } = useTranslator();
 
   return (
-    <section id="home" className="relative mx-auto max-w-6xl px-4 pb-12 pt-16 md:px-6 md:pb-20 md:pt-24">
+    <section id="home" className="relative mx-auto min-h-[calc(100vh-58px)] max-w-6xl px-4 pb-16 pt-12 md:px-6 md:pb-20 md:pt-24">
       <div className="grid items-center gap-10 md:grid-cols-2">
         <div>
           <motion.h1
@@ -24,15 +23,15 @@ export function Hero() {
             Caio Frota
             <br className="hidden sm:block" /> {}
           </motion.h1>
-          <motion.p
+          <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.07 }}
             className="mt-4 max-w-xl text-base text-neutral-800 dark:text-neutral-300 md:text-lg gap-2"
           >
-            <div className="justify-center md:justify-start">{t.hero.brief}</div>
-            <div className="italic pt-2 text-sm text-slate-500 justify-center md:justify-start">{t.hero.subtitle}</div>
-          </motion.p>
+            <p className="justify-center md:justify-start">{t.hero.brief}</p>
+            <p className="italic pt-2 text-sm text-slate-500 justify-center md:justify-start">{t.hero.subtitle}</p>
+          </motion.div>
           <motion.div
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}

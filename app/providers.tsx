@@ -1,6 +1,5 @@
 "use client";
-
-import i18n, { useTranslator } from "i18n";
+import i18n from "i18n";
 import { en, pt_BR } from "i18n/locales";
 import { ThemeProvider } from "next-themes";
 

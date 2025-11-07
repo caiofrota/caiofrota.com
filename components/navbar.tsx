@@ -1,5 +1,4 @@
 "use client";
-
 import { Menu, X } from "lucide-react";
 import { LanguageSwitcher } from "./language-switcher";
 import { ThemeSwitch } from "./theme-switch";

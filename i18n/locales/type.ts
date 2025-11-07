@@ -1,4 +1,6 @@
 export type Type = {
+  title: string;
+  description: string;
   menu: {
     about: string;
     blog: string;

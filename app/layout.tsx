@@ -3,19 +3,20 @@
 import React from "react";
 import "./globals.css";
 import { Providers } from "./providers";
+import { useTranslator } from "i18n";
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
-  const title = "Next.js Blog Boilerplate";
-  const description = "A simple blog boilerplate using Next.js.";
+  const { t } = useTranslator();
+
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <title>{title}</title>
-        <meta name="description" content={description} />
+        <title>{t.title}</title>
+        <meta name="description" content={t.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta property="og:type" content="website" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
+        <meta property="og:title" content={t.title} />
+        <meta property="og:description" content={t.description} />
         <link rel="icon" href="/favicon.ico" />
       </head>
       <body>

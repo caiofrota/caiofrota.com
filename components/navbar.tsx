@@ -32,7 +32,7 @@ export function Navbar({ navItems, onNavClick }: Props) {
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
         <a href="#home" className="inline-flex items-center gap-2" onClick={(e) => onNavClick(e as any, "#home") as any}>
-          <span className="font-semibold tracking-tight">Caio Frota</span>
+          <span className="font-semibold tracking-tight">CF</span>
         </a>
         {/* Mobile: hamburger */}
         <button

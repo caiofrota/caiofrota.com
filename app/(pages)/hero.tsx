@@ -30,8 +30,8 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.07 }}
             className="mt-4 max-w-xl text-base text-neutral-800 dark:text-neutral-300 md:text-lg gap-2"
           >
-            <div>{t.hero.brief}</div>
-            <div className="italic pt-2 text-sm text-slate-500">{t.hero.subtitle}</div>
+            <div className="justify-center md:justify-start">{t.hero.brief}</div>
+            <div className="italic pt-2 text-sm text-slate-500 justify-center md:justify-start">{t.hero.subtitle}</div>
           </motion.p>
           <motion.div
             initial={{ opacity: 0, y: 12 }}

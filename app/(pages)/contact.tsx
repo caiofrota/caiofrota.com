@@ -13,25 +13,25 @@ export function Contact() {
         <Card>
           <form onSubmit={(e) => e.preventDefault()} className="grid gap-4">
             <label className="text-sm">
-              <span className="mb-1 block text-neutral-800 dark:text-neutral-200">{t.contact.form.name.label}</span>
+              <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.name.label}</span>
               <input
-                className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 cf-ring`}
+                className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.name.placeholder}
               />
             </label>
             <label className="text-sm">
-              <span className="mb-1 block text-neutral-800 dark:text-neutral-200">{t.contact.form.email.label}</span>
+              <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.email.label}</span>
               <input
                 type="email"
-                className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 cf-ring`}
+                className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.email.placeholder}
               />
             </label>
             <label className="text-sm">
-              <span className="mb-1 block text-neutral-800 dark:text-neutral-200">{t.contact.form.message.label}</span>
+              <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.message.label}</span>
               <textarea
                 rows={4}
-                className={`w-full resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-neutral-900 placeholder:text-neutral-400 dark:border-neutral-700 dark:bg-neutral-950 dark:text-neutral-100 cf-ring`}
+                className={`w-full resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.message.placeholder}
               />
             </label>
@@ -50,7 +50,7 @@ export function Contact() {
               href="https://github.com/caiofrota"
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800/50"
+              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-slate-700 dark:hover:bg-slate-700/50"
               title="GitHub"
             >
               <span className="inline-flex items-center gap-3">
@@ -65,7 +65,7 @@ export function Contact() {
               href="https://instagram.com/jcaiofrota"
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800/50"
+              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-slate-700 dark:hover:bg-slate-700/50"
               title="Instagram"
             >
               <span className="inline-flex items-center gap-3">
@@ -80,7 +80,7 @@ export function Contact() {
               href="https://www.linkedin.com/in/caiofrota/"
               target="_blank"
               rel="noreferrer"
-              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-neutral-800 dark:hover:bg-neutral-800/50"
+              className="group inline-flex items-center justify-between rounded-2xl border border-neutral-200 px-4 py-3 text-sm transition hover:bg-neutral-50 dark:border-slate-700 dark:hover:bg-slate-700/50"
               title="LinkedIn"
             >
               <span className="inline-flex items-center gap-3">
@@ -92,8 +92,8 @@ export function Contact() {
               <ArrowRight className="h-4 w-4 translate-x-0 opacity-0 transition group-hover:translate-x-1 group-hover:opacity-100" />
             </a>
           </div>
-          <div className="mt-6 rounded-2xl border border-neutral-200 p-4 text-sm dark:border-neutral-800">
-            <p className="leading-relaxed text-neutral-700 dark:text-neutral-300">
+          <div className="mt-6 rounded-2xl border border-neutral-200 p-4 text-sm dark:border-slate-700">
+            <p className="leading-relaxed text-slate-700 dark:text-slate-300">
               I also help companies with quick architecture & integrations consulting and performance diagnostics.
             </p>
           </div>

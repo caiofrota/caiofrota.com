@@ -37,7 +37,7 @@ export const en: Type = {
     subtitle: 'Partnerships, quick consults, complex integrations, or just a simple "Hi"!',
     kicker: "Let's Chat",
     shortcut: "Also find me on",
-    text: "I also help companies with quick architecture & integrations consulting and performance diagnostics.",
+    note: "I also help companies with quick architecture & integrations consulting and performance diagnostics.",
     form: {
       name: {
         label: "Your Name",

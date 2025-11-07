@@ -35,7 +35,7 @@ export type Type = {
     subtitle: string;
     kicker: string;
     shortcut: string;
-    text: string;
+    note: string;
     form: {
       name: {
         label: string;

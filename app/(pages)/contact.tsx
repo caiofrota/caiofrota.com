@@ -93,9 +93,7 @@ export function Contact() {
             </a>
           </div>
           <div className="mt-6 rounded-2xl border border-neutral-200 p-4 text-sm dark:border-slate-700">
-            <p className="leading-relaxed text-slate-700 dark:text-slate-300">
-              I also help companies with quick architecture & integrations consulting and performance diagnostics.
-            </p>
+            <p className="leading-relaxed text-slate-700 dark:text-slate-300">{t.contact.note}</p>
           </div>
         </Card>
       </div>

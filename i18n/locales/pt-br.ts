@@ -37,7 +37,7 @@ export const pt_BR: Type = {
     subtitle: 'Parcerias, consultorias rápidas, integrações complexas ou apenas um "Oi"!',
     kicker: "Vamos Conversar",
     shortcut: "Também me siga em",
-    text: "Estou sempre aberto a novas oportunidades e colaborações. Se você tem um projeto em mente ou apenas quer dizer olá, não hesite em entrar em contato!",
+    note: "Eu também ajudo empresas com consultorias rápidas de arquitetura & integrações e diagnósticos de performance.",
     form: {
       name: {
         label: "Nome",

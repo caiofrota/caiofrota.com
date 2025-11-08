@@ -1,3 +1,4 @@
+"use client";
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Card } from "components/card";
 import { SectionHeading } from "components/section-heading";

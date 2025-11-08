@@ -21,4 +21,32 @@
   .cf-pill {
     @apply inline-flex items-center gap-2 rounded-full bg-linear-to-r px-3 py-1 text-xs font-semibold text-white;
   }
+
+  .article {
+    @apply flex flex-col gap-3 text-lg tracking-wide mb-20;
+
+    h1 {
+      @apply text-4xl text-center tracking-tight;
+    }
+
+    h2 {
+      @apply text-3xl tracking-tight;
+    }
+
+    ol {
+      @apply list-decimal flex flex-col mx-10 gap-2;
+    }
+
+    ul {
+      @apply list-disc flex flex-col mx-10 gap-2;
+    }
+
+    pre {
+      @apply bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto dark:bg-slate-800 dark:text-slate-200;
+    }
+
+    blockquote {
+      @apply pl-5 italic border-l-2 border-slate-300 dark:border-slate-700;
+    }
+  }
 }

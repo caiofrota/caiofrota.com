@@ -14,12 +14,12 @@ export async function sendEmail({ name, email, message }: { name: string; email:
     });
 
     await transporter.sendMail({
-      from: `"${name}" <website@caiofrotasss.com>`,
-      replyTo: email,
+      from: `Website <website@caiofrota.com>`,
+      replyTo: `${name} <${email}>`,
       to: process.env.SMTP_MAIL_TO,
-      subject: `New message from ${name}`,
+      subject: `Uma nova mensagem de: ${name}`,
       text: message,
-      html: `<p>${message}</p><p>From: ${name} (${email})</p>`,
+      html: `<p>${message}</p><p>De: ${name} (${email})</p>`,
     });
   } catch (error) {
     console.error("Error sending email: ", error);

@@ -21,6 +21,7 @@ export function Contact() {
     setIsLoading(true);
     try {
       if (!turnstileToken) {
+        setSentSuccess(false);
         setErrorMessage("Please complete the CAPTCHA challenge.");
       } else {
         setErrorMessage(null);
@@ -29,6 +30,7 @@ export function Contact() {
         setEmail("");
         setMessage("");
         setTurnstileToken(null);
+        setSentSuccess(true);
       }
     } catch (error) {
       console.error(t.contact.form.error);
@@ -47,6 +49,8 @@ export function Contact() {
               <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.name.label}</span>
               <input
                 name="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
                 className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.name.placeholder}
                 required
@@ -57,6 +61,8 @@ export function Contact() {
               <input
                 name="email"
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.email.placeholder}
                 required
@@ -67,6 +73,8 @@ export function Contact() {
               <textarea
                 name="message"
                 rows={4}
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
                 className={`w-full resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.message.placeholder}
                 required

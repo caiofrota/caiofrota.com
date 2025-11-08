@@ -50,6 +50,10 @@ export type Type = {
         placeholder: string;
       };
       send: string;
+      sending: string;
+      success: string;
+      error: string;
+      captchaError: string;
     };
   };
   footer: {

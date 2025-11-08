@@ -52,6 +52,10 @@ export const en: Type = {
         placeholder: "Tell me more about your challenge...",
       },
       send: "Send",
+      sending: "Sending...",
+      success: "Message sent successfully!",
+      error: "An error occurred while sending the message.",
+      captchaError: "Please complete the CAPTCHA challenge.",
     },
   },
   footer: {

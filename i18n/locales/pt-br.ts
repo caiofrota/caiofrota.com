@@ -52,6 +52,10 @@ export const pt_BR: Type = {
         placeholder: "Conte-me mais sobre seu desafio...",
       },
       send: "Enviar",
+      sending: "Enviando...",
+      success: "Mensagem enviada com sucesso!",
+      error: "Ocorreu um erro ao enviar a mensagem.",
+      captchaError: "Por favor, complete o CAPTCHA.",
     },
   },
   footer: {

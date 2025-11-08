@@ -2,6 +2,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer components {
+  html {
+    scroll-behavior: smooth;
+  }
+
   .cf-accent {
     @apply from-[#253160] via-[#4f4c9a] to-[#318ac7] dark:from-[#0098ac] dark:via-[#318ac7] dark:to-[#4f4c9a];
   }

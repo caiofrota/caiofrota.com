@@ -1,7 +1,7 @@
 "use client";
-import { About } from "./about";
-import { Contact } from "./contact";
-import { Hero } from "./hero";
+import { About } from "./_sections/about";
+import { Contact } from "./_sections/contact";
+import { Hero } from "./_sections/hero";
 
 export default function HomePage() {
   return (

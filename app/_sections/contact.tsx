@@ -1,44 +1,86 @@
+import { Turnstile } from "@marsidev/react-turnstile";
 import { Card } from "components/card";
 import { SectionHeading } from "components/section-heading";
 import { useTranslator } from "i18n";
 import { ArrowRight } from "lucide-react";
+import { sendEmail } from "./action";
+import { useState } from "react";
 
 export function Contact() {
   const { t } = useTranslator();
+  const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState<string | null>(null);
+  const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [sentSuccess, setSentSuccess] = useState(false);
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault();
+    setIsLoading(true);
+    try {
+      if (!turnstileToken) {
+        setErrorMessage("Please complete the CAPTCHA challenge.");
+      } else {
+        setErrorMessage(null);
+        await sendEmail({ name, email, message });
+        setName("");
+        setEmail("");
+        setMessage("");
+        setTurnstileToken(null);
+      }
+    } catch (error) {
+      console.error(t.contact.form.error);
+    } finally {
+      setIsLoading(false);
+    }
+  }
 
   return (
-    <section id="contact" className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+    <section id="contact" className="scroll-mt-[58px] mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
       <SectionHeading kicker={t.contact.kicker} title={t.contact.title} subtitle={t.contact.subtitle} />
       <div className="grid gap-6 md:grid-cols-2">
         <Card>
-          <form onSubmit={(e) => e.preventDefault()} className="grid gap-4">
+          <form onSubmit={handleSubmit} className="grid gap-4">
             <label className="text-sm">
               <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.name.label}</span>
               <input
+                name="name"
                 className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.name.placeholder}
+                required
               />
             </label>
             <label className="text-sm">
               <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.email.label}</span>
               <input
+                name="email"
                 type="email"
                 className={`w-full rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.email.placeholder}
+                required
               />
             </label>
             <label className="text-sm">
               <span className="mb-1 block text-slate-800 dark:text-neutral-200">{t.contact.form.message.label}</span>
               <textarea
+                name="message"
                 rows={4}
                 className={`w-full resize-none rounded-xl border border-neutral-300 bg-white px-3 py-2 text-sm text-slate-900 placeholder:text-neutral-400 dark:border-slate-700 dark:bg-slate-800 dark:text-neutral-100 cf-ring`}
                 placeholder={t.contact.form.message.placeholder}
+                required
               />
             </label>
+            <Turnstile onSuccess={setTurnstileToken} siteKey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY!} />
+            {errorMessage && <p className="text-sm text-red-600">{errorMessage}</p>}
+            {sentSuccess && !errorMessage && <p className="text-sm text-green-600">{t.contact.form.success}</p>}
             <button
-              className={`inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r cf-accent px-5 py-3 text-sm font-semibold text-white shadow-xl transition active:scale-[.98]`}
+              className={`inline-flex items-center justify-center gap-2 rounded-xl bg-linear-to-r cf-accent px-5 py-3 text-sm font-semibold text-white shadow-xl transition active:scale-[.98] disabled:opacity-50 disabled:shadow-none`}
+              type="submit"
+              disabled={isLoading}
             >
-              {t.contact.form.send} <ArrowRight className="h-4 w-4" />
+              {isLoading ? t.contact.form.sending : t.contact.form.send} <ArrowRight className="h-4 w-4" />
             </button>
           </form>
         </Card>

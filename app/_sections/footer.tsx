@@ -2,13 +2,7 @@ import { useTranslator } from "i18n";
 
 export function Footer({ ref }: React.PropsWithChildren<{ ref?: React.Ref<HTMLElement> }>) {
   const { t } = useTranslator();
-  /*
-  const socials = [
-    { key: "github", icon: SiGithub, href: "https://github.com/jcaiofrota" },
-    { key: "linkedin", icon: Linkedin, href: "https://www.linkedin.com/in/caiofrota/" },
-    { key: "email", icon: Mail, href: "mailto:oi@caiofrota.com" },
-  ] as const;
-*/
+
   return (
     <footer ref={ref} id="footer" className="border-t border-neutral-200/70 py-10 dark:border-neutral-800/70">
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 px-4 lg:flex-row md:px-6">

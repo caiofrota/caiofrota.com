@@ -7,7 +7,7 @@ export function About() {
   const { t } = useTranslator();
 
   return (
-    <section id="about" className="w-full bg-slate-100 dark:bg-slate-800">
+    <section id="about" className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
         <SectionHeading kicker={t.about.kicker} title={t.about.title} subtitle={t.about.subtitle} />
         <motion.div

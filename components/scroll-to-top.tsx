@@ -21,7 +21,6 @@ export function ScrollToTop({ label, aboveFooter }: Props) {
     if (aboveFooter) {
       const footer = document.querySelector("footer");
       if (!footer) return;
-      console.log(footer);
 
       const observer = new IntersectionObserver(([entry]) => setAbove(!entry.isIntersecting), { threshold: 0 });
 

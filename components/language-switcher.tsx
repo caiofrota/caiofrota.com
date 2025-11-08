@@ -5,7 +5,6 @@ export function LanguageSwitcher() {
   const { language, changeLanguage } = useTranslator();
 
   function handleChange(newLang: string) {
-    console.log(newLang);
     changeLanguage(newLang);
     document.documentElement.lang = language();
   }

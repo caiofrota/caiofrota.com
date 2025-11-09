@@ -54,24 +54,6 @@ class I18n implements II18n {
     return I18n._instance;
   }
 
-  /**
-   * Returns the language that should be used initially.
-   *
-   * @returns The language that should be used initially.
-   */
-  private getInitialLanguage(): string {
-    if (typeof window === "undefined") return this._fallbackLanguage;
-    const storedLanguage = localStorage.getItem(this.LOCAL_STORAGE);
-    if (storedLanguage && Object.keys(this._translations).includes(storedLanguage)) {
-      return storedLanguage;
-    }
-    const browserLanguage = navigator.language.slice(0, 2);
-    if (Object.keys(this._translations).includes(browserLanguage)) {
-      return browserLanguage;
-    }
-    return this._fallbackLanguage;
-  }
-
   get language(): string {
     return this._currentLanguage;
   }
@@ -79,7 +61,7 @@ class I18n implements II18n {
   configure(translations: { [key: string]: Type }, fallbackLanguage: string): void {
     this._translations = translations;
     this._fallbackLanguage = fallbackLanguage;
-    this._currentLanguage = this.getInitialLanguage();
+    this._currentLanguage = this._fallbackLanguage;
     this._selectedTranslation = translations[this._currentLanguage];
   }
 

@@ -23,6 +23,20 @@ export function useTranslator() {
     };
   }, []);
 
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const storedLanguage = localStorage.getItem("i18n");
+      if (storedLanguage && storedLanguage !== i18n.language) {
+        i18n.changeLanguage(storedLanguage);
+      } else if (!storedLanguage) {
+        const browserLang = navigator.language.startsWith("pt") ? "pt-BR" : "en-US";
+        if (browserLang !== i18n.language) {
+          i18n.changeLanguage(browserLang);
+        }
+      }
+    }
+  }, []);
+
   /**
    * Changes the language.
    *

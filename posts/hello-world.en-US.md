@@ -4,6 +4,7 @@ subtitle: "The starting point for every programmer"
 category: "Thoughts"
 lang: "en-US"
 date: "08-11-2025"
+featured: "/images/blog/2025/hello-world.jpg"
 ---
 
 ![Hello World](/images/blog/2025/hello-world.jpg)

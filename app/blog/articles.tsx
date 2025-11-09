@@ -1,10 +1,11 @@
 "use client";
 import { useTranslator } from "i18n";
-import { ArticleItemList } from "./article-item-list";
+import { ArticleItemList } from "components/article-item-list";
 import { SectionHeading } from "components/section-heading";
 import { motion } from "framer-motion";
+import { PostMeta } from "lib/articles";
 
-export function Articles({ articles }: { articles: Record<string, any[]> }) {
+export function Articles({ articles }: { articles: Record<string, PostMeta[]> }) {
   const { t, language } = useTranslator();
 
   const a = (
@@ -30,17 +31,19 @@ export function Articles({ articles }: { articles: Record<string, any[]> }) {
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
       <div className="mx-auto max-w-6xl px-4 py-6 pb-10 md:px-6 md:py-10">
         <SectionHeading title="Blog" />
-        <>
-          {Object.keys(articles)
-            .filter((category) => articles[category].some((article) => article.lang === language()))
-            .map((category) => (
-              <div key={Math.random()} className="flex flex-col gap-5">
-                <div className="flex flex-col gap-2.5 font-poppins text-lg">
-                  <ArticleItemList category={category} articles={articles[category].filter((article) => article.lang === language())} />
-                </div>
+        {Object.keys(articles)
+          .filter((category) => articles[category].some((article) => article.lang === language()))
+          .map((category) => (
+            <div key={Math.random()} className="flex flex-col gap-5">
+              <div className="flex flex-col gap-2.5 font-poppins text-lg">
+                <ArticleItemList
+                  articles={articles[category].filter((article, index) => article.lang === language() && index === 0)}
+                  imagePosition="top"
+                />
+                <ArticleItemList articles={articles[category].filter((article, index) => article.lang === language() && index > 0)} />
               </div>
-            ))}
-        </>
+            </div>
+          ))}
       </div>
     </div>
   );

@@ -4,6 +4,7 @@ subtitle: "O ponto de partida de todo programador"
 category: "Pensamentos"
 lang: "pt-BR"
 date: "08-11-2025"
+featured: "/images/blog/2025/hello-world.jpg"
 ---
 
 ![Hello World](/images/blog/2025/hello-world.jpg)

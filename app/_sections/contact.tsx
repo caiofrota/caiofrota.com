@@ -41,7 +41,7 @@ export function Contact() {
   }
 
   return (
-    <section id="contact" className="scroll-mt-[58px] mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-24">
+    <section id="contact" className="scroll-mt-[58px] mx-auto max-w-6xl px-4 py-10 md:px-6 md:py-24">
       <SectionHeading kicker={t.contact.kicker} title={t.contact.title} subtitle={t.contact.subtitle} />
       <div className="grid gap-6 md:grid-cols-2">
         <Card>

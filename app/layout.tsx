@@ -1,12 +1,12 @@
 "use client";
+import { Navbar } from "components/navbar";
+import { ScrollToTop } from "components/scroll-to-top";
+import i18n, { useTranslator } from "i18n";
+import { en, pt_BR } from "i18n/locales";
 import React from "react";
+import { Footer } from "./_sections/footer";
 import "./globals.css";
 import { Providers } from "./providers";
-import i18n, { useTranslator } from "i18n";
-import { Navbar } from "components/navbar";
-import { Footer } from "./_sections/footer";
-import { ScrollToTop } from "components/scroll-to-top";
-import { en, pt_BR } from "i18n/locales";
 
 i18n.configure(
   {

@@ -1,9 +1,6 @@
 "use client";
-import { ArticleItemList } from "components/article-item-list";
 import { SectionHeading } from "components/section-heading";
 import { useTranslator } from "i18n";
-import { PostMeta } from "lib/articles";
-import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 
 type Props = {

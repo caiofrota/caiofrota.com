@@ -64,5 +64,11 @@
     blockquote {
       @apply pl-5 italic border-l-2 border-slate-300 dark:border-slate-700;
     }
+
+    p {
+      img {
+        @apply w-full md:w-1/2 mx-auto;
+      }
+    }
   }
 }

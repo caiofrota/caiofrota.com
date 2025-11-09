@@ -6,6 +6,8 @@ lang: "en-US"
 date: "08-11-2025"
 ---
 
+![Hello World](/images/blog/2025/hello-world.jpg)
+
 Every programmer’s journey begins with two simple words: **Hello World**.  
 It’s the classic first step, a small line of code that opens up an entire universe of possibilities.
 

@@ -6,6 +6,8 @@ lang: "pt-BR"
 date: "08-11-2025"
 ---
 
+![Hello World](/images/blog/2025/hello-world.jpg)
+
 Toda jornada de um programador começa com duas palavras simples: **Hello World**.  
 É o primeiro passo clássico, uma pequena linha de código que abre um universo inteiro de possibilidades.
 

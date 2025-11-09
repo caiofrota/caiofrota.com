@@ -74,6 +74,7 @@ export async function getPostData(id: string, lang?: string): Promise<PostData |
     lang: lang || null,
     title: matterResult.data.title,
     subtitle: matterResult.data.subtitle,
+    categorySlug: await slugify(matterResult.data.category),
     category: matterResult.data.category,
     date: matterResult.data.date,
     html: htmlContent.toString(),
@@ -124,6 +125,7 @@ export type PostData = {
   title: string;
   subtitle?: string;
   date: string;
+  categorySlug: string;
   category: string;
   lang: string | null;
   html: string;

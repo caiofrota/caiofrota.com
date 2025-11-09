@@ -59,7 +59,10 @@ export function Article({ slug }: Props) {
   return (
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
       <div className="mx-auto max-w-6xl px-4 py-6 pb-1 md:px-6 md:py-10">
-        <SectionHeading kicker={data.category} title={data.title} subtitle={data.subtitle} />
+        <SectionHeading title={data.title} subtitle={data.subtitle} />
+        <Link href={`/blog/categories/${data.categorySlug}`} className="flex justify-center underline text-slate-600 dark:text-slate-400">
+          {data.category}
+        </Link>
         <div className="flex justify-between">
           <Link href="/blog" className="flex text-sm text-slate-600 dark:text-slate-400 hover:underline gap-2">
             <ArrowLeft width={20} />

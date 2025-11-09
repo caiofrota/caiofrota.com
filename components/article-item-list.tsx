@@ -1,3 +1,4 @@
+import { useTranslator } from "i18n";
 import { PostMeta } from "lib/articles";
 import Link from "next/link";
 
@@ -6,6 +7,8 @@ type Props = {
   imagePosition?: "left" | "top";
 };
 export function ArticleItemList({ articles, imagePosition = "left" }: Props) {
+  const { t } = useTranslator();
+
   return (
     <div className="flex flex-col gap-5">
       <div className="flex flex-col gap-2.5 font-poppins text-lg">
@@ -21,13 +24,21 @@ export function ArticleItemList({ articles, imagePosition = "left" }: Props) {
                 className={`${imagePosition === "left" ? "basis-1/3" : "max-w-full"} h-fit overflow-hidden rounded-lg shrink-0 object-cover`}
               />
             )}
-            <Link href={`/blog/${article.id}`} key={article.id} className="text-slate-800 dark:text-slate-200 hover:underline">
-              <p className="text-xl font-bold">{article.title}</p>
+            <div className="text-slate-800 dark:text-slate-200">
+              <Link href={`/blog/${article.id}`} className="text-slate-800 dark:text-slate-200">
+                <p className="text-xl font-bold underline">{article.title}</p>
+              </Link>
               <p className="text-sm">
-                {article.date} - {article.category}
+                {article.date} -{" "}
+                <Link href={`/blog/categories/${article.categorySlug}`} className="text-slate-800 dark:text-slate-200 underline">
+                  {article.category}
+                </Link>
               </p>
               <p className="">{article.preview}</p>
-            </Link>
+              <Link href={`/blog/${article.id}`} className="text-slate-800 dark:text-slate-200 underline">
+                {t.blog.article.readMore}
+              </Link>
+            </div>
           </div>
         ))}
       </div>

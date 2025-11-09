@@ -58,6 +58,22 @@ export const pt_BR: Type = {
       captchaError: "Por favor, complete o CAPTCHA.",
     },
   },
+  blog: {
+    title: "Blog",
+    subtitle: "Reflexões, tutoriais e histórias do meu dia a dia.",
+    article: {
+      backToBlog: "Voltar ao Blog",
+      readMore: "Ler mais",
+      loading: {
+        title: "Carregando...",
+        message: "Por favor, aguarde enquanto carregamos o post.",
+      },
+      notFound: {
+        title: "Post não encontrado",
+        message: "Desculpe, não conseguimos encontrar o post que você está procurando.",
+      },
+    },
+  },
   footer: {
     madeWith: (year: number) => `© 2008-${year} Caio Frota. Desde 2008 construindo soluções com amor e café!`,
   },

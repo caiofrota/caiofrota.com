@@ -6,14 +6,6 @@ import path from "path";
 import { remark } from "remark";
 import html from "remark-html";
 
-type PostMeta = {
-  id: string;
-  title: string;
-  date: string;
-  category: string;
-  lang: string | null;
-};
-
 const postsDirectory = path.join(process.cwd(), "posts");
 
 export async function getSortedPosts(): Promise<PostMeta[]> {
@@ -59,7 +51,7 @@ export async function getCategorizedPosts(): Promise<Record<string, PostMeta[]>>
   return categorizedPosts;
 }
 
-export async function getPostData(id: string, lang?: string): Promise<any | null> {
+export async function getPostData(id: string, lang?: string): Promise<PostData | null> {
   const fullPath = path.join(postsDirectory, `${id}${lang ? `.${lang}` : ""}.md`);
   if (!fs.existsSync(fullPath)) {
     return null;
@@ -71,9 +63,29 @@ export async function getPostData(id: string, lang?: string): Promise<any | null
 
   return {
     id,
+    lang: lang || null,
     title: matterResult.data.title,
+    subtitle: matterResult.data.subtitle,
     category: matterResult.data.category,
     date: moment(matterResult.data.date, "DD-MM-YYYY").format("MMMM D, YYYY"),
     html: htmlContent.toString(),
   };
 }
+
+export type PostMeta = {
+  id: string;
+  title: string;
+  date: string;
+  category: string;
+  lang: string | null;
+};
+
+export type PostData = {
+  id: string;
+  title: string;
+  subtitle?: string;
+  date: string;
+  category: string;
+  lang: string | null;
+  html: string;
+};

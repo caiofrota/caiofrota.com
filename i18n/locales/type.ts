@@ -56,6 +56,22 @@ export type Type = {
       captchaError: string;
     };
   };
+  blog: {
+    title: string;
+    subtitle: string;
+    article: {
+      backToBlog: string;
+      readMore: string;
+      loading: {
+        title: string;
+        message: string;
+      };
+      notFound: {
+        title: string;
+        message: string;
+      };
+    };
+  };
   footer: {
     madeWith: (year: number) => string;
   };

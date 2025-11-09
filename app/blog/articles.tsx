@@ -28,7 +28,7 @@ export function Articles({ articles }: { articles: Record<string, any[]> }) {
   );
   return (
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
-      <div className="mx-auto max-w-6xl px-4 py-16 md:px-6 md:py-10">
+      <div className="mx-auto max-w-6xl px-4 py-6 pb-10 md:px-6 md:py-10">
         <SectionHeading title="Blog" />
         <>
           {Object.keys(articles)

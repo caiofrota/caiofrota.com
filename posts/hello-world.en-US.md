@@ -1,11 +1,10 @@
 ---
 title: "Hello World"
+subtitle: "The starting point for every programmer"
 category: "Thoughts"
 lang: "en-US"
 date: "08-11-2023"
 ---
-
-# Hello World
 
 Every programmer’s journey begins with two simple words: **Hello World**.  
 It’s the classic first step, a small line of code that opens up an entire universe of possibilities.

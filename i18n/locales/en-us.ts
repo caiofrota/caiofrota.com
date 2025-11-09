@@ -58,6 +58,22 @@ export const en: Type = {
       captchaError: "Please complete the CAPTCHA challenge.",
     },
   },
+  blog: {
+    title: "Blog",
+    subtitle: "Reflections, tutorials, and stories from my daily life.",
+    article: {
+      backToBlog: "Back to Blog",
+      readMore: "Read more",
+      loading: {
+        title: "Loading...",
+        message: "Please wait while we fetch the article for you.",
+      },
+      notFound: {
+        title: "Post not found",
+        message: "Sorry, we couldn't find the post you're looking for.",
+      },
+    },
+  },
   footer: {
     madeWith: (year: number) => `© 2008-${year} Caio Frota. Since 2008 building solutions with love and coffee!`,
   },

@@ -1,11 +1,10 @@
 ---
 title: "Hello World"
+subtitle: "O ponto de partida de todo programador"
 category: "Pensamentos"
 lang: "pt-BR"
 date: "08-11-2023"
 ---
-
-# Hello World
 
 Toda jornada de um programador começa com duas palavras simples: **Hello World**.  
 É o primeiro passo clássico, uma pequena linha de código que abre um universo inteiro de possibilidades.

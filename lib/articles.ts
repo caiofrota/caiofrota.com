@@ -10,22 +10,27 @@ const postsDirectory = path.join(process.cwd(), "posts");
 
 export async function getSortedPosts(): Promise<PostMeta[]> {
   const fileNames = fs.readdirSync(postsDirectory);
-  const allPosts: PostMeta[] = fileNames.map((fileName) => {
-    const name = fileName.replace(/\.md$/, "");
-    const language = name.match(/^(.*)\.([a-z]{2}(?:-[A-Z]{2})?)$/);
-    const fullPath = path.join(postsDirectory, fileName);
-    const fileContents = fs.readFileSync(fullPath, "utf8");
+  const allPosts: PostMeta[] = await Promise.all(
+    fileNames.map(async (fileName) => {
+      const name = fileName.replace(/\.md$/, "");
+      const language = name.match(/^(.*)\.([a-z]{2}(?:-[A-Z]{2})?)$/);
+      const fullPath = path.join(postsDirectory, fileName);
+      const fileContents = fs.readFileSync(fullPath, "utf8");
 
-    const matterResult = matter(fileContents);
+      const matterResult = matter(fileContents);
 
-    return {
-      id: language?.[1] || name,
-      lang: language?.[2] || null,
-      title: matterResult.data.title,
-      category: matterResult.data.category,
-      date: matterResult.data.date,
-    };
-  });
+      return {
+        id: language?.[1] || name,
+        lang: language?.[2] || null,
+        title: matterResult.data.title,
+        categorySlug: await slugify(matterResult.data.category),
+        category: matterResult.data.category,
+        preview: getPreview(matterResult.content),
+        date: matterResult.data.date,
+        featured: matterResult.data.featured || undefined,
+      };
+    }),
+  );
 
   return allPosts.sort((a, b) => {
     const format = "DD-MM-YYYY";
@@ -41,12 +46,15 @@ export async function getCategorizedPosts(): Promise<Record<string, PostMeta[]>>
   const allPosts = await getSortedPosts();
   const categorizedPosts: Record<string, PostMeta[]> = {};
 
-  allPosts.forEach((post) => {
-    if (!categorizedPosts[post.category]) {
-      categorizedPosts[post.category] = [];
-    }
-    categorizedPosts[post.category].push(post);
-  });
+  await Promise.all(
+    allPosts.map(async (post) => {
+      const slug = await slugify(post.category);
+      if (!categorizedPosts[slug]) {
+        categorizedPosts[slug] = [];
+      }
+      categorizedPosts[slug].push(post);
+    }),
+  );
 
   return categorizedPosts;
 }
@@ -72,12 +80,43 @@ export async function getPostData(id: string, lang?: string): Promise<PostData |
   };
 }
 
+export async function slugify(text: string): Promise<string> {
+  return text
+    .toString()
+    .normalize("NFD") // split accented letters (e.g. é -> e + ́)
+    .replace(/[\u0300-\u036f]/g, "") // remove diacritics
+    .toLowerCase() // lowercase everything
+    .trim() // remove spaces at start/end
+    .replace(/[^a-z0-9]+/g, "-") // replace non-alphanumeric with dashes
+    .replace(/^-+|-+$/g, ""); // remove leading/trailing dashes
+}
+
+function getPreview(text: string, length: number = 200): string {
+  const cleanText = text
+    // Remove markdown images ![alt](url)
+    .replace(/!\[[^\]]*\]\([^)]+\)/g, "")
+    // Remove links [text](url)
+    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
+    // Remove markdown formatting symbols (#, *, _, `, >, -, etc.)
+    .replace(/[#*_`>~\-]/g, "")
+    // Remove extra whitespace and newlines
+    .replace(/\s+/g, " ")
+    .trim();
+
+  if (cleanText.length <= length) return cleanText;
+  return cleanText.slice(0, length) + "...";
+}
+
 export type PostMeta = {
   id: string;
   title: string;
+  subtitle?: string;
   date: string;
+  categorySlug: string;
   category: string;
   lang: string | null;
+  preview: string;
+  featured?: string;
 };
 
 export type PostData = {

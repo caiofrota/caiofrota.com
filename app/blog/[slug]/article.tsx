@@ -11,6 +11,7 @@ type Props = {
 };
 export function Article({ slug }: Props) {
   const { t, language } = useTranslator();
+
   const { data, isLoading, error } = useQuery<PostData>({
     queryKey: ["post", slug, language()],
     enabled: !!slug,
@@ -20,6 +21,14 @@ export function Article({ slug }: Props) {
       return response.json();
     },
   });
+
+  function formatDate(dateStr: string) {
+    return new Date(dateStr.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")).toLocaleDateString(language(), {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+    });
+  }
 
   if (isLoading) {
     return (
@@ -56,7 +65,7 @@ export function Article({ slug }: Props) {
             <ArrowLeft width={20} />
             <span>Back to Blog</span>
           </Link>
-          <span className="text-sm text-slate-600 dark:text-slate-400">{data ? data.date : ""}</span>
+          <span className="text-sm text-slate-600 dark:text-slate-400">{data?.date ? formatDate(data.date) : ""}</span>
         </div>
         <div className="article py-4" dangerouslySetInnerHTML={{ __html: data ? data.html : "Post not found" }} />
       </div>

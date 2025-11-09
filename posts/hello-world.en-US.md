@@ -3,7 +3,7 @@ title: "Hello World"
 subtitle: "The starting point for every programmer"
 category: "Thoughts"
 lang: "en-US"
-date: "08-11-2023"
+date: "08-11-2025"
 ---
 
 Every programmer’s journey begins with two simple words: **Hello World**.  

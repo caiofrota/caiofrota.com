@@ -67,7 +67,7 @@ export async function getPostData(id: string, lang?: string): Promise<PostData |
     title: matterResult.data.title,
     subtitle: matterResult.data.subtitle,
     category: matterResult.data.category,
-    date: moment(matterResult.data.date, "DD-MM-YYYY").format("MMMM D, YYYY"),
+    date: matterResult.data.date,
     html: htmlContent.toString(),
   };
 }

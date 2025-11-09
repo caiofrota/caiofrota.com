@@ -73,6 +73,14 @@ export const pt_BR: Type = {
         message: "Desculpe, não conseguimos encontrar o post que você está procurando.",
       },
     },
+    categories: {
+      title: "Categorias",
+      subtitle: "Explore os artigos por categoria.",
+      notFound: {
+        title: "Categoria não encontrada",
+        message: "Desculpe, não conseguimos encontrar a categoria que você está procurando.",
+      },
+    },
   },
   footer: {
     madeWith: (year: number) => `© 2008-${year} Caio Frota. Desde 2008 construindo soluções com amor e café!`,

@@ -71,6 +71,14 @@ export type Type = {
         message: string;
       };
     };
+    categories: {
+      title: string;
+      subtitle: string;
+      notFound: {
+        title: string;
+        message: string;
+      };
+    };
   };
   footer: {
     madeWith: (year: number) => string;

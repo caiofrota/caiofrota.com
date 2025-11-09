@@ -73,6 +73,14 @@ export const en: Type = {
         message: "Sorry, we couldn't find the post you're looking for.",
       },
     },
+    categories: {
+      title: "Categories",
+      subtitle: "Explore articles by category.",
+      notFound: {
+        title: "Category not found",
+        message: "Sorry, we couldn't find the category you're looking for.",
+      },
+    },
   },
   footer: {
     madeWith: (year: number) => `© 2008-${year} Caio Frota. Since 2008 building solutions with love and coffee!`,

@@ -12,6 +12,7 @@ export function SocialBar({ socials, showLabels = false }: Props) {
         const Icon = CONFIG[type].icon;
         return (
           <Link
+            key={type}
             href={url}
             target="_blank"
             rel="noreferrer"

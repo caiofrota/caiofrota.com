@@ -12,10 +12,7 @@ export function Hero() {
   const { t, language, changeLanguage } = useTranslator();
 
   return (
-    <section
-      id="home"
-      className="scroll-mt-[58px] relative mx-auto min-h-[calc(100vh-58px)] max-w-6xl px-4 pb-16 pt-12 md:px-6 md:pb-20 md:pt-24"
-    >
+    <section id="home" className="scroll-mt-[58px] relative mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6 md:pb-20 md:pt-24">
       <div className="grid items-center gap-10 md:grid-cols-2">
         <div>
           <motion.h1

@@ -60,6 +60,7 @@ export default async function RootLayout({ params, children }: Props) {
         <I18nProvider translator={t} language={normalized}>
           <Providers>
             <main className="relative min-h-screen bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100">
+              <h1 className="sr-only">{t.title}</h1>
               <Navbar navItems={navItems} locale={locale} />
               {children}
               <Footer />

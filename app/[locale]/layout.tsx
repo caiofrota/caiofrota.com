@@ -65,10 +65,7 @@ export default async function RootLayout({ params, children }: Props) {
         <title>{t.title}</title>
         <meta name="description" content={t.description} />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta property="og:type" content="website" />
-        <meta property="og:title" content={t.title} />
-        <meta property="og:description" content={t.description} />
-        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" href="/favicon.png" />
       </head>
       <body>
         <I18nProvider translator={t} language={normalized}>

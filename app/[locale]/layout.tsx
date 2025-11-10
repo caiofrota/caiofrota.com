@@ -13,14 +13,26 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const normalized = normalizeLocale(locale);
   const t = getDictionary(normalized);
   return {
-    title: t.title,
+    metadataBase: new URL("https://caiofrota.com"),
+    title: {
+      default: t.title,
+      template: `%s | Caio Frota`,
+    },
     description: t.description,
     openGraph: {
-      title: t.title,
-      url: `https://caiofrota.com/${locale}`,
-      description: t.description,
       type: "website",
+      url: `https://caiofrota.com`,
+      title: t.title,
+      description: t.description,
+      siteName: "Caio Frota",
       images: ["/images/caio-frota.jpg"],
+    },
+    alternates: {
+      canonical: `https://caiofrota.com`,
+      languages: {
+        en: "https://caiofrota.com/en",
+        pt: "https://caiofrota.com/br",
+      },
     },
   };
 }

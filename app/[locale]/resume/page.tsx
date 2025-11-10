@@ -1,9 +1,28 @@
-"use client";
 import { SectionHeading } from "components/section-heading";
-import { useTranslator } from "i18n";
+import { getDictionary, normalizeLocale } from "i18n";
+import { Metadata } from "next";
 
-export default function Page() {
-  const { t } = useTranslator();
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const normalized = normalizeLocale(locale);
+  const t = getDictionary(normalized);
+  return {
+    title: `${t.resume.title} | Caio Frota`,
+    description: t.description,
+    alternates: {
+      canonical: `https://caiofrota.com/${locale}/resume`,
+      languages: {
+        en: "https://caiofrota.com/en/resume",
+        pt: "https://caiofrota.com/br/resume",
+      },
+    },
+  };
+}
+
+export default async function Page({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
+  const normalized = normalizeLocale(locale);
+  const t = getDictionary(normalized);
 
   return (
     <div className="min-h-screen py-12 px-4 sm:px-6 lg:px-8">

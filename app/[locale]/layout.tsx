@@ -37,11 +37,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   };
 }
 
-export const viewport = {
-  width: "device-width",
-  initialScale: 1,
-};
-
 type Props = {
   params: Promise<{ locale: string }>;
   children: React.ReactNode;
@@ -61,12 +56,6 @@ export default async function RootLayout({ params, children }: Props) {
 
   return (
     <html lang={normalized} suppressHydrationWarning>
-      <head>
-        <title>{t.title}</title>
-        <meta name="description" content={t.description} />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="icon" href="/favicon.png" />
-      </head>
       <body>
         <I18nProvider translator={t} language={normalized}>
           <Providers>

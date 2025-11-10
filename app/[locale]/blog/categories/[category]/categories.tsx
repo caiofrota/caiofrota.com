@@ -11,7 +11,7 @@ type Props = {
 };
 export function Categories({ articles }: Props) {
   const { t, language } = useTranslator();
-  const filteredArticles = articles.filter((article) => article.lang === language() || !article.lang);
+  const filteredArticles = articles.filter((article) => article.lang === language || !article.lang);
 
   return (
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">

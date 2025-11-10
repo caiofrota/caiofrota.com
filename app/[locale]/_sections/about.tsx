@@ -1,7 +1,7 @@
 "use client";
 import { SectionHeading } from "components/section-heading";
 import { motion } from "framer-motion";
-import { useTranslator } from "i18n";
+import { useTranslator } from "i18n/provider";
 
 export function About() {
   const { t } = useTranslator();

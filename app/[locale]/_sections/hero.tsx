@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 export function Hero() {
-  const { t, language, changeLanguage } = useTranslator();
+  const { t } = useTranslator();
 
   return (
     <section id="home" className="scroll-mt-[58px] relative mx-auto max-w-6xl px-4 pb-16 pt-12 md:px-6 md:pb-20 md:pt-24">
@@ -20,7 +20,6 @@ export function Hero() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             className="text-5xl font-extrabold leading-tight tracking-tight text-center md:text-left md:text-6xl"
-            onClick={() => changeLanguage(language() === "en" ? "pt" : "en")}
           >
             Caio Frota
           </motion.h1>

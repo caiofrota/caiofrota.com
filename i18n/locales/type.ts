@@ -134,6 +134,6 @@ export type Type = {
     };
   };
   footer: {
-    madeWith: (year: number) => string;
+    madeWith: string;
   };
 };

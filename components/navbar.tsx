@@ -7,9 +7,10 @@ import Link from "next/link";
 
 type Props = {
   navItems: { label: string; href: string }[];
+  locale: string;
 };
 
-export function Navbar({ navItems }: Props) {
+export function Navbar({ navItems, locale }: Props) {
   const [open, setOpen] = useState(false);
   const [elevated, setElevated] = useState(false);
 
@@ -29,7 +30,7 @@ export function Navbar({ navItems }: Props) {
       className={`sticky top-0 z-40 ${elevated ? "border-b shadow-sm" : "border-b"} border-neutral-200/60 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 dark:border-neutral-800/60 dark:bg-black/40 dark:supports-backdrop-filter:bg-black/30`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
-        <Link href="/#home" onClick={handleClick} className="inline-flex items-center gap-2">
+        <Link href={`/${locale}/#home`} onClick={handleClick} className="inline-flex items-center gap-2">
           <span className="font-semibold tracking-tight">CF</span>
         </Link>
         {/* Mobile: hamburger */}

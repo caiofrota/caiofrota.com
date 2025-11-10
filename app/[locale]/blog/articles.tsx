@@ -10,17 +10,17 @@ export function Articles({ articles }: { articles: Record<string, PostMeta[]> })
   return (
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
       <div className="mx-auto max-w-6xl px-4 py-6 pb-10 md:px-6 md:py-10">
-        <SectionHeading title="Blog" />
+        <SectionHeading title={t.blog.title} />
         {Object.keys(articles)
-          .filter((category) => articles[category].some((article) => article.lang === language()))
+          .filter((category) => articles[category].some((article) => article.lang === language))
           .map((category) => (
             <div key={Math.random()} className="flex flex-col gap-5">
               <div className="flex flex-col gap-2.5 font-poppins text-lg">
                 <ArticleItemList
-                  articles={articles[category].filter((article, index) => article.lang === language() && index === 0)}
+                  articles={articles[category].filter((article, index) => article.lang === language && index === 0)}
                   imagePosition="top"
                 />
-                <ArticleItemList articles={articles[category].filter((article, index) => article.lang === language() && index > 0)} />
+                <ArticleItemList articles={articles[category].filter((article, index) => article.lang === language && index > 0)} />
               </div>
             </div>
           ))}

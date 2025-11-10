@@ -13,17 +13,17 @@ export function Article({ slug }: Props) {
   const { t, language } = useTranslator();
 
   const { data, isLoading, error } = useQuery<PostData>({
-    queryKey: ["post", slug, language()],
+    queryKey: ["post", slug, language],
     enabled: !!slug,
     queryFn: async () => {
-      const response = await fetch(`/api/posts/${slug}?lang=${language()}`);
+      const response = await fetch(`/api/posts/${slug}?lang=${language}`);
       if (!response.ok) throw new Error("Network response was not ok");
       return response.json();
     },
   });
 
   function formatDate(dateStr: string) {
-    return new Date(dateStr.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")).toLocaleDateString(language(), {
+    return new Date(dateStr.replace(/(\d{2})-(\d{2})-(\d{4})/, "$2/$1/$3")).toLocaleDateString(language, {
       day: "numeric",
       month: "long",
       year: "numeric",

@@ -280,6 +280,6 @@ export const pt_BR: Type = {
     },
   },
   footer: {
-    madeWith: (year: number) => `© 2008-${year} Caio Frota. Desde 2008 construindo soluções com amor e café!`,
+    madeWith: "© 2008-{{year}} Caio Frota. Desde 2008 construindo soluções com amor e café!",
   },
 };

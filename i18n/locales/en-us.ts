@@ -277,6 +277,6 @@ export const en: Type = {
     },
   },
   footer: {
-    madeWith: (year: number) => `© 2008-${year} Caio Frota. Since 2008 building solutions with love and coffee!`,
+    madeWith: "© 2008-{{year}} Caio Frota. Since 2008 building solutions with love and coffee!",
   },
 };

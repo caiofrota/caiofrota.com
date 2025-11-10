@@ -2,10 +2,10 @@
 import { Turnstile } from "@marsidev/react-turnstile";
 import { Card } from "components/card";
 import { SectionHeading } from "components/section-heading";
-import { useTranslator } from "i18n";
+import { useTranslator } from "i18n/provider";
 import { ArrowRight } from "lucide-react";
-import { sendEmail } from "./action";
 import { useState } from "react";
+import { sendEmail } from "./action";
 
 export function Contact() {
   const { t } = useTranslator();

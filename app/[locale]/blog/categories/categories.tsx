@@ -8,7 +8,7 @@ type Props = {
 };
 export function Categories({ categories }: Props) {
   const { t, language } = useTranslator();
-  const filteredCategories = categories.filter((category) => category.lang === language() || !category.lang);
+  const filteredCategories = categories.filter((category) => category.lang === language || !category.lang);
 
   return (
     <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">

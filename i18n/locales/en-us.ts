@@ -1,8 +1,9 @@
 import type { Type } from "./type";
 
 export const en: Type = {
-  title: "Caio Frota - Made with love and coffee!",
-  description: "A little about me, my work, and how to get in touch.",
+  title: "Caio Frota - Software Engineer - Made with love and coffee!",
+  description:
+    "My name is Caio Frota. I'm a specialized software engineer. Here you can find a bit about me, my work, and how to get in touch.",
   menu: {
     home: "Home",
     about: "About",

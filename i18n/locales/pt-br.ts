@@ -1,8 +1,9 @@
 import { Type } from "./type";
 
 export const pt_BR: Type = {
-  title: "Caio Frota - Feito com amor e café!",
-  description: "Um pouco sobre mim, meu trabalho e como entrar em contato.",
+  title: "Caio Frota - Engenheiro de Software - Feito com amor e café!",
+  description:
+    "Me chamo Caio Frota. Sou engenheiro de software especializado. Aqui você encontra um pouco sobre mim, meu trabalho e como entrar em contato.",
   menu: {
     home: "Início",
     about: "Sobre",

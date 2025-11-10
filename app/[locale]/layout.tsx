@@ -6,6 +6,29 @@ import React from "react";
 import { Footer } from "./_sections/footer";
 import "./globals.css";
 import { Providers } from "./providers";
+import { Metadata } from "next";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const normalized = normalizeLocale(locale);
+  const t = getDictionary(normalized);
+  return {
+    title: t.title,
+    description: t.description,
+    openGraph: {
+      title: t.title,
+      url: `https://caiofrota.com/${locale}`,
+      description: t.description,
+      type: "website",
+      images: ["/images/caio-frota.jpg"],
+    },
+  };
+}
+
+export const viewport = {
+  width: "device-width",
+  initialScale: 1,
+};
 
 type Props = {
   params: Promise<{ locale: string }>;

@@ -12,8 +12,8 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     alternates: {
       canonical: `https://caiofrota.com/${locale}/resume`,
       languages: {
-        en: "https://caiofrota.com/en/resume",
-        pt: "https://caiofrota.com/br/resume",
+        "en-US": "https://caiofrota.com/en/resume",
+        "pt-BR": "https://caiofrota.com/br/resume",
       },
     },
   };

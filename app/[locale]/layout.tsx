@@ -28,10 +28,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: ["/images/caio-frota.jpg"],
     },
     alternates: {
-      canonical: `https://caiofrota.com`,
+      canonical: `https://caiofrota.com/${locale}`,
       languages: {
-        en: "https://caiofrota.com/en",
-        pt: "https://caiofrota.com/br",
+        "en-US": "https://caiofrota.com/en",
+        "pt-BR": "https://caiofrota.com/br",
       },
     },
   };

@@ -2,6 +2,7 @@ export type Type = {
   title: string;
   description: string;
   menu: {
+    home: string;
     about: string;
     blog: string;
     resume: string;
@@ -77,6 +78,58 @@ export type Type = {
       notFound: {
         title: string;
         message: string;
+      };
+    };
+  };
+  resume: {
+    title: string;
+    subtitle: string;
+    kicker: string;
+    sections: {
+      header: {
+        descriptions: string[];
+        languages: {
+          title: string;
+          list: string[];
+        };
+      };
+      skills: {
+        title: string;
+        languages: {
+          title: string;
+          list: string[];
+        };
+        technologiesAndPlatforms: {
+          title: string;
+          list: string[];
+        };
+      };
+      experience: {
+        title: string;
+        jobs: Array<{
+          company: string;
+          location: string;
+          period: string;
+          overview: string;
+          description: string;
+          skills: string[];
+          positions: Array<{
+            title: string;
+            period: string;
+            responsibilities: string[];
+          }>;
+        }>;
+      };
+      education: {
+        title: string;
+        institutions: Array<{
+          name: string;
+          qualifications: string[];
+        }>;
+      };
+      certifications: {
+        title: string;
+        qualifications: string[];
       };
     };
   };

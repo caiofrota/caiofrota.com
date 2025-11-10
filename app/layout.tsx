@@ -20,9 +20,10 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   const { t } = useTranslator();
 
   const navItems = [
+    { label: t.menu.home, href: "/#home" },
     { label: t.menu.about, href: "/#about" },
     { label: t.menu.blog, href: "/blog" },
-    { label: t.menu.resume, href: "/#resume" },
+    { label: t.menu.resume, href: "/resume" },
     { label: t.menu.contact, href: "/#contact" },
   ];
 

@@ -7,6 +7,7 @@ import { Footer } from "./_sections/footer";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Metadata } from "next";
+import { Script } from "next/script";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -56,16 +57,20 @@ export default async function RootLayout({ params, children }: Props) {
 
   return (
     <html lang={normalized} suppressHydrationWarning>
-<head>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-DN01V737Z1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      <body>
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-DN01V737Z1"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){window.dataLayer.push(arguments);}
+            gtag('js', new Date());
 
-  gtag('config', 'G-DN01V737Z1');
-</script>
-</head><body>
+            gtag('config', 'G-DN01V737Z1');
+          `}
+        </Script>
         <I18nProvider translator={t} language={normalized}>
           <Providers>
             <main className="relative min-h-screen bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100">

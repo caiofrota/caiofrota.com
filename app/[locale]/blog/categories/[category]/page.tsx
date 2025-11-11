@@ -14,10 +14,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: `${t.blog.categories.title} - ${category}`,
     description: t.description,
     alternates: {
-      canonical: `https://caiofrota.com/${locale}/blog/categories/${category}`,
+      canonical: `https://www.caiofrota.com/${locale}/blog/categories/${category}`,
       languages: {
-        "en-US": `https://caiofrota.com/en/blog/categories/${category}`,
-        "pt-BR": `https://caiofrota.com/br/blog/categories/${category}`,
+        "en-US": `https://www.caiofrota.com/en/blog/categories/${category}`,
+        "pt-BR": `https://www.caiofrota.com/br/blog/categories/${category}`,
       },
     },
   };

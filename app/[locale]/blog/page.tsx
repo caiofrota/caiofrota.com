@@ -12,10 +12,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: t.blog.title,
     description: t.description,
     alternates: {
-      canonical: `https://caiofrota.com/${locale}/blog`,
+      canonical: `https://www.caiofrota.com/${locale}/blog`,
       languages: {
-        "en-US": `https://caiofrota.com/en/blog`,
-        "pt-BR": `https://caiofrota.com/br/blog`,
+        "en-US": `https://www.caiofrota.com/en/blog`,
+        "pt-BR": `https://www.caiofrota.com/br/blog`,
       },
     },
   };

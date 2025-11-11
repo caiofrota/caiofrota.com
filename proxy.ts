@@ -6,7 +6,7 @@ const PUBLIC_FILE = /\.(.*)$/;
 const SUPPORTED_LOCALES = ["en", "br"] as const;
 const DEFAULT_LOCALE = "en";
 
-export function middleware(req: NextRequest) {
+export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
   if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/_next") || pathname.startsWith("/api")) {

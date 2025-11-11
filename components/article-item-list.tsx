@@ -1,3 +1,4 @@
+"use client";
 import { useTranslator } from "i18n";
 import { PostMeta } from "lib/articles";
 import Link from "next/link";

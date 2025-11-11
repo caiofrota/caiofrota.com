@@ -2,12 +2,12 @@ import { Navbar } from "components/navbar";
 import { ScrollToTop } from "components/scroll-to-top";
 import { getDictionary, normalizeLocale } from "i18n/i18n";
 import { I18nProvider } from "i18n/provider";
+import { Metadata } from "next";
+import Script from "next/script";
 import React from "react";
 import { Footer } from "./_sections/footer";
 import "./globals.css";
 import { Providers } from "./providers";
-import { Metadata } from "next";
-import Script from "next/script";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
@@ -58,10 +58,7 @@ export default async function RootLayout({ params, children }: Props) {
   return (
     <html lang={normalized} suppressHydrationWarning>
       <body>
-        <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-DN01V737Z1"
-          strategy="afterInteractive"
-        />
+        <Script src="https://www.googletagmanager.com/gtag/js?id=G-DN01V737Z1" strategy="afterInteractive" />
         <Script id="google-analytics" strategy="afterInteractive">
           {`
             window.dataLayer = window.dataLayer || [];

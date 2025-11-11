@@ -56,8 +56,7 @@ export default async function RootLayout({ params, children }: Props) {
 
   return (
     <html lang={normalized} suppressHydrationWarning>
-      <body>
-        <!-- Google tag (gtag.js) -->
+<head>
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-DN01V737Z1"></script>
 <script>
   window.dataLayer = window.dataLayer || [];
@@ -66,6 +65,7 @@ export default async function RootLayout({ params, children }: Props) {
 
   gtag('config', 'G-DN01V737Z1');
 </script>
+</head><body>
         <I18nProvider translator={t} language={normalized}>
           <Providers>
             <main className="relative min-h-screen bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100">

@@ -7,7 +7,7 @@ import { Footer } from "./_sections/footer";
 import "./globals.css";
 import { Providers } from "./providers";
 import { Metadata } from "next";
-import { Script } from "next/script";
+import Script from "next/script";
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;

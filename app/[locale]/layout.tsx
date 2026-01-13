@@ -1,4 +1,5 @@
 import { Navbar } from "components/navbar";
+import SchemaOrg from "components/schema";
 import { ScrollToTop } from "components/scroll-to-top";
 import { getDictionary, normalizeLocale } from "i18n/i18n";
 import { I18nProvider } from "i18n/provider";
@@ -68,6 +69,38 @@ export default async function RootLayout({ params, children }: Props) {
             gtag('config', 'G-DN01V737Z1');
           `}
         </Script>
+        <SchemaOrg
+          site={{
+            url: "https://www.caiofrota.com",
+            name: "Caio Frota",
+            logoUrl: "https://www.caiofrota.com/images/logo-128.png",
+            email: "contato@caiofrota.com",
+            availableLanguages: ["pt-BR", "en-US"],
+            sameAs: [
+              "https://instagram.com/jcaiofrota",
+              "http://facebook.com/jcaiofrota",
+              "https://www.linkedin.com/in/caiofrota/",
+              "https://x.com/jcaiofrota",
+            ],
+          }}
+          config={{
+            disableDefaultTypes: ["WebPage"],
+          }}
+        />
+        <SchemaOrg
+          canonicalUrl={`https://www.caiofrota.com/${locale}`}
+          lang={normalized}
+          alternates={[
+            { url: "https://www.caiofrota.com/br/", inLanguage: "pt-BR" },
+            { url: "https://www.caiofrota.com/en/", inLanguage: "en" },
+          ]}
+          pageTitle="Caio Frota"
+          pageDescription={
+            locale === "br"
+              ? "Um engenheiro de software apaixonado por criar aplicações e experiências de alta qualidade."
+              : "A software engineer passionate about building high-quality applications and experiences."
+          }
+        />
         <I18nProvider translator={t} language={normalized}>
           <Providers>
             <main className="relative min-h-screen bg-slate-200 text-slate-900 dark:bg-slate-900 dark:text-slate-100">

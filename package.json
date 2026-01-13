@@ -10,7 +10,8 @@
     "build": "next build",
     "start": "next start",
     "lint:check": "prettier --check .",
-    "lint:fix": "prettier --write ."
+    "lint:fix": "prettier --write .",
+    "seo": "python3 seo-audit.py https://www.caiofrota.com/ --max-pages 25"
   },
   "dependencies": {
     "@heroicons/react": "^2.2.0",

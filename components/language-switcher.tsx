@@ -34,7 +34,7 @@ export function LanguageSwitcher() {
         className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-1 text-xs font-medium dark:border-neutral-700 dark:bg-neutral-900 cf-ring"
       >
         <span className="text-lg leading-none">
-          <ReactCountryFlag countryCode={flags[currentLocale]} svg />
+          <ReactCountryFlag alt={currentLocale} countryCode={flags[currentLocale]} svg />
         </span>
       </button>
 
@@ -44,13 +44,13 @@ export function LanguageSwitcher() {
             onClick={() => switchTo("en")}
             className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
           >
-            <ReactCountryFlag countryCode={flags["en"]} svg /> English
+            <ReactCountryFlag alt="English" countryCode={flags["en"]} svg /> English
           </button>
           <button
             onClick={() => switchTo("br")}
             className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
           >
-            <ReactCountryFlag countryCode={flags["br"]} svg /> Português
+            <ReactCountryFlag alt="Português" countryCode={flags["br"]} svg /> Português
           </button>
         </div>
       )}

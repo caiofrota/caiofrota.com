@@ -133,7 +133,7 @@ export const en: Type = {
         title: "Professional Experience",
         jobs: [
           {
-            company: "SOAP Health",
+            company: "Medome",
             location: "Remote - Full-time (Florida, USA)",
             period: "Since Aug 2021 - Present",
             description:

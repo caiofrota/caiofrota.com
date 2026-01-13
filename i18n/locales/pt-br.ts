@@ -133,7 +133,7 @@ export const pt_BR: Type = {
         title: "Experiência Profissional",
         jobs: [
           {
-            company: "SOAP Health",
+            company: "Medome",
             location: "Remoto - Tempo integral (Flórida, EUA) - Desde Ago 2021",
             period: "Desde Ago 2021 - Presente",
             description:

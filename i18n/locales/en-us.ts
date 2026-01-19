@@ -220,7 +220,7 @@ export const en: Type = {
                 ],
               },
               {
-                title: "Mid-level Software Developer",
+                title: "Semi Senior Software Developer",
                 period: "Oct 2010 - Jun 2012 (1 yr and 8 mos)",
                 responsibilities: [
                   "Contributed to the development and maintenance of enterprise applications, supporting both backend and frontend demands.",

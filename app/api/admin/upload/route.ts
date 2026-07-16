@@ -2,7 +2,7 @@ import { randomUUID } from "crypto";
 import { NextResponse } from "next/server";
 import { requireAdmin } from "lib/auth";
 import { prisma } from "lib/prisma";
-import { publicMediaUrl, uploadMedia } from "lib/storage";
+import { publicMediaUrl, removeStoredMedia, uploadMedia } from "lib/storage";
 
 export const runtime = "nodejs";
 
@@ -19,16 +19,22 @@ export async function POST(request: Request) {
   const key = `caiofrota/blog/${new Date().toISOString().slice(0, 7)}/${randomUUID()}-${safeName}`;
   try {
     const stored = await uploadMedia(file, key);
-    const asset = await prisma.mediaAsset.create({
-      data: {
-        key: stored.key,
-        provider: stored.provider,
-        filename: file.name,
-        mimeType: file.type,
-        size: file.size,
-        altText: file.name.replace(/\.[^.]+$/, ""),
-      },
-    });
+    let asset;
+    try {
+      asset = await prisma.mediaAsset.create({
+        data: {
+          key: stored.key,
+          provider: stored.provider,
+          filename: file.name,
+          mimeType: file.type,
+          size: file.size,
+          altText: file.name.replace(/\.[^.]+$/, ""),
+        },
+      });
+    } catch (databaseError) {
+      await removeStoredMedia(stored).catch(() => undefined);
+      throw databaseError;
+    }
     const url = publicMediaUrl(asset);
     if (!url) throw new Error("Não foi possível gerar a URL pública da imagem.");
     return NextResponse.json({ id: asset.id, url, altText: asset.altText, provider: stored.provider });

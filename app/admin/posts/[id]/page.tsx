@@ -145,6 +145,7 @@ export default async function EditPostPage({
 
           <div className="border-t border-site-border px-5 py-5 sm:px-6 sm:py-6">
             <CoverImageField
+              key={article.id}
               initialAsset={
                 selectedCover
                   ? {

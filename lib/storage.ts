@@ -1,8 +1,8 @@
 import "server-only";
 
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, unlink, writeFile } from "node:fs/promises";
 import { dirname, resolve, sep } from "node:path";
-import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { env } from "./env";
 
 export const LOCAL_MEDIA_PROVIDER = "local";
@@ -63,6 +63,27 @@ export async function uploadMedia(file: File, key: string) {
   await writeFile(target, body, { flag: "wx" });
 
   return { key: safeKey, provider: LOCAL_MEDIA_PROVIDER };
+}
+
+export async function removeStoredMedia(media: Pick<MediaReference, "key" | "provider">) {
+  const safeKey = safeStorageKey(media.key);
+
+  if (media.provider === REMOTE_MEDIA_PROVIDER) {
+    if (!isRemoteMediaStorageConfigured()) throw new Error("Armazenamento remoto não configurado.");
+    const client = new S3Client({
+      region: "auto",
+      endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      credentials: {
+        accessKeyId: env.R2_ACCESS_KEY_ID!,
+        secretAccessKey: env.R2_SECRET_ACCESS_KEY!,
+      },
+    });
+    await client.send(new DeleteObjectCommand({ Bucket: env.R2_BUCKET!, Key: safeKey }));
+    return;
+  }
+
+  if (media.provider !== LOCAL_MEDIA_PROVIDER) throw new Error("Provedor de mídia inválido.");
+  await unlink(localMediaFilePath(safeKey));
 }
 
 export function localMediaFilePath(key: string) {

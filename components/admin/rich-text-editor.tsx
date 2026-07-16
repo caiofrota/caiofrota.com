@@ -23,7 +23,7 @@ import {
   X,
   type LucideIcon,
 } from "lucide-react";
-import { type FormEvent, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const ACCEPTED_IMAGE_TYPES = new Set(["image/jpeg", "image/png", "image/webp", "image/gif", "image/avif"]);
 const MAX_IMAGE_SIZE = 8_000_000;
@@ -79,6 +79,7 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
   const [uploadError, setUploadError] = useState<string | null>(null);
   const [imageDialogOpen, setImageDialogOpen] = useState(false);
   const imageButton = useRef<HTMLButtonElement>(null);
+  const editorRoot = useRef<HTMLDivElement>(null);
   const uploadInProgress = useRef(false);
 
   const editor = useEditor({
@@ -141,6 +142,20 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
       setHtml(initialHtml);
     }
   }, [editor, initialHtml]);
+
+  useEffect(() => {
+    const form = editorRoot.current?.closest("form");
+    if (!form) return;
+
+    function preventSubmitDuringUpload(event: SubmitEvent) {
+      if (!uploadInProgress.current) return;
+      event.preventDefault();
+      setUploadError("Aguarde o envio da imagem terminar antes de salvar ou publicar.");
+    }
+
+    form.addEventListener("submit", preventSubmitDuringUpload);
+    return () => form.removeEventListener("submit", preventSubmitDuringUpload);
+  }, []);
 
   async function upload(file: File) {
     if (!editor) return false;
@@ -205,7 +220,6 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
       .focus()
       .setImage({ src: media.url, alt: media.altText ?? media.filename })
       .run();
-    closeImageDialog();
   }
 
   function openLinkPanel() {
@@ -215,8 +229,7 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
     setLinkPanelOpen(true);
   }
 
-  function applyLink(event: FormEvent<HTMLFormElement>) {
-    event.preventDefault();
+  function applyLink() {
     if (!editor) return;
 
     const value = linkUrl.trim();
@@ -243,7 +256,10 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
 
   return (
     <>
-      <div className="overflow-hidden rounded-xl border border-site-border bg-site-surface-strong shadow-sm transition focus-within:border-site-accent/50 focus-within:ring-2 focus-within:ring-site-accent/20">
+      <div
+        ref={editorRoot}
+        className="overflow-hidden rounded-xl border border-site-border bg-site-surface-strong shadow-sm transition focus-within:border-site-accent/50 focus-within:ring-2 focus-within:ring-site-accent/20"
+      >
         <div className="flex flex-wrap items-center gap-1 border-b border-site-border bg-site-surface px-2 py-2">
           <ToolbarButton
             label="Negrito"
@@ -350,10 +366,7 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
         </div>
 
         {linkPanelOpen ? (
-          <form
-            onSubmit={applyLink}
-            className="flex flex-col gap-2 border-b border-site-border bg-site-surface px-3 py-3 sm:flex-row sm:items-center"
-          >
+          <div className="flex flex-col gap-2 border-b border-site-border bg-site-surface px-3 py-3 sm:flex-row sm:items-center">
             <label htmlFor={`${name}-link-url`} className="sr-only">
               Endereço do link
             </label>
@@ -361,12 +374,17 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
               id={`${name}-link-url`}
               value={linkUrl}
               onChange={(event) => setLinkUrl(event.target.value)}
+              onKeyDown={(event) => {
+                if (event.key !== "Enter") return;
+                event.preventDefault();
+                applyLink();
+              }}
               placeholder="https://exemplo.com ou /pagina"
               autoComplete="off"
               className="cf-ring min-w-0 flex-1 rounded-lg border border-site-border bg-site-surface-strong px-3 py-2 text-sm text-site-heading placeholder:text-site-muted/70"
             />
             <div className="flex items-center gap-2">
-              <button type="submit" className="button-primary px-3 py-2 text-xs" disabled={!editor}>
+              <button type="button" onClick={applyLink} className="button-primary px-3 py-2 text-xs" disabled={!editor}>
                 Aplicar link
               </button>
               {editor?.isActive("link") ? (
@@ -384,7 +402,7 @@ export function RichTextEditor({ name, initialHtml, label = "Conteúdo do artigo
                 <X className="size-4" aria-hidden="true" />
               </button>
             </div>
-          </form>
+          </div>
         ) : null}
 
         {uploadError ? (

@@ -1,9 +1,8 @@
 import { Type } from "./type";
 
 export const pt_BR: Type = {
-  title: "Caio Frota - Engenheiro de Software - Feito com amor e café!",
-  description:
-    "Me chamo Caio Frota. Sou engenheiro de software especializado. Aqui você encontra um pouco sobre mim, meu trabalho e como entrar em contato.",
+  title: "Caio Frota | Engenheiro de Software Sênior & Tech Lead",
+  description: "Engenheiro de Software Sênior e Tech Lead com experiência em backend, aplicações web, APIs, cloud e liderança técnica.",
   menu: {
     home: "Início",
     about: "Sobre",
@@ -36,10 +35,10 @@ export const pt_BR: Type = {
   },
   contact: {
     title: "Contato",
-    subtitle: 'Parcerias, consultorias rápidas, integrações complexas ou apenas um "Oi"!',
+    subtitle: "Parcerias, consultoria, produtos digitais, engenharia de backend ou apenas um ‘Oi’!",
     kicker: "Vamos Conversar",
     shortcut: "Também me siga em",
-    note: "Eu também ajudo empresas com consultorias rápidas de arquitetura & integrações e diagnósticos de performance.",
+    note: "Ajudo empresas com arquitetura de software, APIs, confiabilidade e diagnósticos de performance.",
     form: {
       name: {
         label: "Nome",
@@ -56,8 +55,12 @@ export const pt_BR: Type = {
       send: "Enviar",
       sending: "Enviando...",
       success: "Mensagem enviada com sucesso!",
-      error: "Ocorreu um erro ao enviar a mensagem.",
-      captchaError: "Por favor, complete o CAPTCHA.",
+      errors: {
+        invalidFields: "Revise os campos e tente novamente.",
+        rateLimited: "Muitas mensagens em pouco tempo. Tente novamente em alguns minutos.",
+        configuration: "O envio de mensagens ainda não está configurado.",
+        generic: "Não foi possível enviar a mensagem. Tente novamente.",
+      },
     },
   },
   blog: {
@@ -88,15 +91,25 @@ export const pt_BR: Type = {
     title: "Currículo",
     subtitle: "Jose Caio Frota",
     kicker: "Meu Currículo",
+    role: "Engenheiro de Software Sênior · Tech Lead",
+    contactLine: "contato@caiofrota.com · linkedin.com/in/caiofrota",
+    metadataDescription: "Currículo de Caio Frota, Engenheiro de Software Sênior e Tech Lead.",
+    downloadLabel: "Baixar currículo em PDF",
+    profileLabel: "Perfil profissional",
+    highlights: [
+      { value: "15+ anos", label: "Engenharia de software" },
+      { value: "Full stack", label: "Produtos web, APIs e integrações" },
+      { value: "Remoto", label: "Colaboração Brasil · EUA" },
+    ],
     sections: {
       header: {
         descriptions: [
-          "Engenheiro de Software com mais de 15 anos de experiência na construção de aplicações web escaláveis e plataformas de integração. Especializado em TypeScript (JS, React), com sólida expertise em APIs, integrações e padrões de saúde (HL7). Demonstrada capacidade de liderar equipes e orientar engenheiros, transformando requisitos complexos em soluções simples e seguras.",
-          "Implementei com sucesso testes automatizados e pipelines de CI/CD para o Mirth Connect, aumentando a confiabilidade e a velocidade de entrega em uma camada de integração de saúde crítica.",
+          "Engenheiro de Software Sênior e Tech Lead com mais de 15 anos de experiência construindo produtos digitais, aplicações web escaláveis, APIs e plataformas de integração. Atua de ponta a ponta, da arquitetura e do backend às interfaces, automação e entrega contínua, transformando requisitos complexos em soluções simples, seguras e confiáveis.",
+          "Experiência em liderar equipes, orientar engenheiros e elevar a qualidade de software com testes automatizados, observabilidade e pipelines de CI/CD em diferentes contextos de negócio.",
         ],
         languages: {
           title: "Idiomas",
-          list: ["Português (Nativo)", "Inglês (Fluente)", "Espanhol (Limitado)"],
+          list: ["Português (nativo)", "Inglês (fluente, proficiência profissional)", "Espanhol (proficiência profissional limitada)"],
         },
       },
       skills: {
@@ -104,14 +117,13 @@ export const pt_BR: Type = {
         languages: {
           title: "Linguagens",
           list: [
-            "TypeScript / JavaScript (10+ years) - Node.js, React, Angular",
-            "Java (10+ years)",
-            "SQL (10+ years)",
-            "HL7 (4 years)",
-            "Python (5 years)",
-            "Tailwind CSS (5 years)",
-            "HTML5 (10+ years)",
-            "CSS (10+ years)",
+            "TypeScript / JavaScript (10+ anos) - Node.js, React, Angular",
+            "Java (10+ anos)",
+            "SQL (10+ anos)",
+            "Python (5 anos)",
+            "Tailwind CSS (5 anos)",
+            "HTML5 (10+ anos)",
+            "CSS (10+ anos)",
           ],
         },
         technologiesAndPlatforms: {
@@ -121,11 +133,12 @@ export const pt_BR: Type = {
             "Conteinerização & Orquestração: Docker, Kubernetes",
             "CI/CD: GitHub Actions, Jenkins, GitLab CI",
             "Controle de Versão: Git, GitHub, GitLab, Bitbucket",
-            "Banco de Dados: MySQL, Postgres, Oracle",
-            "Ferramentas de Integração: cURL, Postman, Insomnia, Mirth Connect",
+            "Bancos de Dados: MySQL, Postgres, Oracle",
+            "Ferramentas de Integração: cURL, Postman, Insomnia",
             "NoSQL: MongoDB, Firebase",
             "Frameworks: Spring Boot, Hibernate, Angular, React",
             "ETL & Ferramentas de Análise",
+            "Domínio de Saúde: HL7 / FHIR, Mirth Connect",
           ],
         },
       },
@@ -134,8 +147,8 @@ export const pt_BR: Type = {
         jobs: [
           {
             company: "Medome",
-            location: "Remoto - Tempo integral (Flórida, EUA) - Desde Ago 2021",
-            period: "Desde Ago 2021 - Presente",
+            location: "Remoto - Tempo integral (Flórida, EUA)",
+            period: "Ago 2021 - Presente",
             description:
               "Uma empresa de saúde que utiliza IA e dados clínicos avançados para melhorar os resultados dos pacientes, ajudando os provedores a oferecer cuidados mais precisos, eficientes e personalizados.",
             overview: "Healthtech utilizando IA e dados clínicos",
@@ -152,12 +165,21 @@ export const pt_BR: Type = {
             positions: [
               {
                 title: "Líder Técnico de Integração",
-                period: "Desde Jan 2023 - Presente",
+                period: "Ago 2023 - Presente",
                 responsibilities: [
                   "Liderar a equipe de integração, projetando e entregando soluções escaláveis que conectam sistemas de saúde e plataformas empresariais.",
                   "Impulsionar as melhores práticas de desenvolvimento com foco em APIs, interoperabilidade e troca de dados em ambientes complexos.",
                   "Orientar e guiar engenheiros, promovendo clareza, pragmatismo e resultados mensuráveis.",
                   "Implementar testes automatizados e pipelines de CI/CD para o Mirth Connect, melhorando a confiabilidade, qualidade e velocidade de entrega em uma camada de integração crítica.",
+                ],
+              },
+              {
+                title: "Engenheiro de Software Sênior",
+                period: "Ago 2021 - Ago 2023 (2 anos)",
+                responsibilities: [
+                  "Desenvolveu e manteve aplicações de nível empresarial, com forte foco em serviços de backend e integrações de sistemas.",
+                  "Colaborou estreitamente com equipes multifuncionais para garantir soluções escaláveis, seguras e orientadas às necessidades do negócio.",
+                  "Adaptou-se rapidamente ao HL7 e ao Mirth Connect, estabelecendo padrões de integração e boas práticas de desenvolvimento para garantir qualidade e consistência.",
                 ],
               },
             ],
@@ -173,7 +195,7 @@ export const pt_BR: Type = {
               "TypeScript",
               "Desenvolvimento de APIs",
               "Java",
-              "Spring boot",
+              "Spring Boot",
               "Hibernate",
               "ETL",
               "Angular",

@@ -1,0 +1,147 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum UserRole {
+  ADMIN
+  EDITOR
+}
+
+enum PublicationStatus {
+  DRAFT
+  PUBLISHED
+}
+
+enum ContentLocale {
+  PT_BR
+  EN_US
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  email        String    @unique
+  passwordHash String
+  role         UserRole  @default(EDITOR)
+  sessions     Session[]
+  articles     Article[] @relation("ArticleAuthor")
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+}
+
+model Session {
+  id        String    @id @default(cuid())
+  userId    String
+  tokenHash String    @unique
+  expiresAt DateTime
+  revokedAt DateTime?
+  createdAt DateTime  @default(now())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([expiresAt])
+}
+
+model Article {
+  id           String               @id @default(cuid())
+  authorId     String
+  translations ArticleTranslation[]
+  author       User                 @relation("ArticleAuthor", fields: [authorId], references: [id])
+  createdAt    DateTime             @default(now())
+  updatedAt    DateTime             @updatedAt
+}
+
+model ArticleTranslation {
+  id                    String            @id @default(cuid())
+  articleId             String
+  locale                ContentLocale
+  title                 String
+  slug                  String
+  excerpt               String?
+  contentHtml           String            @default("")
+  draftTitle            String?
+  draftExcerpt          String?
+  draftContentHtml      String?
+  hasUnpublishedChanges Boolean           @default(false)
+  status                PublicationStatus @default(DRAFT)
+  coverImageId          String?
+  ogImageId             String?
+  publishedAt           DateTime?
+  seoTitle              String?
+  seoDescription        String?
+  canonicalUrl          String?
+  readingTimeMinutes    Int               @default(1)
+  article               Article           @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  coverImage            MediaAsset?       @relation("ArticleCover", fields: [coverImageId], references: [id])
+  ogImage               MediaAsset?       @relation("ArticleOg", fields: [ogImageId], references: [id])
+  categories            CategoryTranslation[] @relation("ArticleCategory")
+  tags                  TagTranslation[]  @relation("ArticleTag")
+  createdAt             DateTime          @default(now())
+  updatedAt             DateTime          @updatedAt
+
+  @@unique([articleId, locale])
+  @@unique([locale, slug])
+  @@index([locale, status, publishedAt])
+}
+
+model Category {
+  id           String                @id @default(cuid())
+  translations CategoryTranslation[]
+  createdAt    DateTime              @default(now())
+  updatedAt    DateTime              @updatedAt
+}
+
+model CategoryTranslation {
+  id         String            @id @default(cuid())
+  categoryId String
+  locale     ContentLocale
+  name       String
+  slug       String
+  description String?
+  category   Category          @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  articles   ArticleTranslation[] @relation("ArticleCategory")
+
+  @@unique([categoryId, locale])
+  @@unique([locale, slug])
+}
+
+model Tag {
+  id           String           @id @default(cuid())
+  translations TagTranslation[]
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+}
+
+model TagTranslation {
+  id        String             @id @default(cuid())
+  tagId     String
+  locale    ContentLocale
+  name      String
+  slug      String
+  tag       Tag                @relation(fields: [tagId], references: [id], onDelete: Cascade)
+  articles  ArticleTranslation[] @relation("ArticleTag")
+
+  @@unique([tagId, locale])
+  @@unique([locale, slug])
+}
+
+model MediaAsset {
+  id             String               @id @default(cuid())
+  key            String               @unique
+  provider       String
+  filename       String
+  mimeType       String
+  size           Int
+  width          Int?
+  height         Int?
+  altText        String?
+  createdAt      DateTime             @default(now())
+  updatedAt      DateTime             @updatedAt
+  coverFor       ArticleTranslation[] @relation("ArticleCover")
+  ogFor          ArticleTranslation[] @relation("ArticleOg")
+}

@@ -1,8 +1,11 @@
 import type { MetadataRoute } from "next";
+import { listPublishedArticles, listPublishedCategories } from "lib/blog";
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const base = "https://caiofrota.com";
-  return [
+export const dynamic = "force-dynamic";
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const base = "https://www.caiofrota.com";
+  const staticPages: MetadataRoute.Sitemap = [
     {
       url: `${base}/en`,
       lastModified: new Date(),
@@ -40,4 +43,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       priority: 0.5,
     },
   ];
+  const dynamicPages = (await Promise.all(["br", "en"].map(async (locale) => {
+    const [articles, categories] = await Promise.all([listPublishedArticles(locale), listPublishedCategories(locale)]);
+    return [
+      ...articles.map((article) => ({ url: `${base}/${locale}/blog/${article.slug}`, lastModified: article.updatedAt ?? article.publishedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
+      ...categories.map((category) => ({ url: `${base}/${locale}/blog/categories/${category.slug}`, changeFrequency: "weekly" as const, priority: 0.4 })),
+    ];
+  }))).flat();
+  return [...staticPages, ...dynamicPages];
 }

@@ -31,7 +31,7 @@ export function LanguageSwitcher() {
     <div className="relative inline-block text-left">
       <button
         onClick={() => setOpen(!open)}
-        className="inline-flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-2 py-1 text-xs font-medium dark:border-neutral-700 dark:bg-neutral-900 cf-ring"
+        className="inline-flex items-center gap-2 rounded-lg border border-slate-300/80 bg-white/70 px-2 py-1 text-xs font-medium text-slate-700 dark:border-slate-700/70 dark:bg-slate-800/70 dark:text-slate-300 cf-ring"
       >
         <span className="text-lg leading-none">
           <ReactCountryFlag alt={currentLocale} countryCode={flags[currentLocale]} svg />
@@ -39,16 +39,16 @@ export function LanguageSwitcher() {
       </button>
 
       {open && (
-        <div className="absolute left-0 mt-2 w-28 rounded-md border border-neutral-200 bg-white shadow-lg dark:border-neutral-700 dark:bg-neutral-900 z-50">
+        <div className="absolute left-0 z-50 mt-2 w-28 rounded-md border border-slate-200 bg-[#f8f7f3] text-slate-700 shadow-lg dark:border-slate-700 dark:bg-slate-800 dark:text-slate-300">
           <button
             onClick={() => switchTo("en")}
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700/70"
           >
             <ReactCountryFlag alt="English" countryCode={flags["en"]} svg /> English
           </button>
           <button
             onClick={() => switchTo("br")}
-            className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-neutral-100 dark:hover:bg-neutral-800"
+            className="flex w-full items-center gap-2 px-3 py-2 text-sm hover:bg-slate-100 dark:hover:bg-slate-700/70"
           >
             <ReactCountryFlag alt="Português" countryCode={flags["br"]} svg /> Português
           </button>

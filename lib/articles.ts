@@ -7,21 +7,26 @@ import { remark } from "remark";
 import html from "remark-html";
 
 const postsDirectory = path.join(process.cwd(), "posts");
+const postFilePattern = /^([a-z0-9]+(?:-[a-z0-9]+)*)\.(pt-BR|en-US)\.md$/;
+const postSlugPattern = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
 
 export async function getSortedPosts(): Promise<PostMeta[]> {
-  const fileNames = fs.readdirSync(postsDirectory);
+  const postFiles = fs.readdirSync(postsDirectory).flatMap((fileName) => {
+    const match = fileName.match(postFilePattern);
+    if (!match) return [];
+
+    return [{ fileName, id: match[1], lang: match[2] }];
+  });
   const allPosts: PostMeta[] = await Promise.all(
-    fileNames.map(async (fileName) => {
-      const name = fileName.replace(/\.md$/, "");
-      const language = name.match(/^(.*)\.([a-z]{2}(?:-[A-Z]{2})?)$/);
+    postFiles.map(async ({ fileName, id, lang }) => {
       const fullPath = path.join(postsDirectory, fileName);
       const fileContents = fs.readFileSync(fullPath, "utf8");
 
       const matterResult = matter(fileContents);
 
       return {
-        id: language?.[1] || name,
-        lang: language?.[2] || null,
+        id,
+        lang,
         title: matterResult.data.title,
         categorySlug: await slugify(matterResult.data.category),
         category: matterResult.data.category,
@@ -60,6 +65,10 @@ export async function getCategorizedPosts(): Promise<Record<string, PostMeta[]>>
 }
 
 export async function getPostData(id: string, lang?: string): Promise<PostData | null> {
+  if (!postSlugPattern.test(id) || (lang && lang !== "pt-BR" && lang !== "en-US")) {
+    return null;
+  }
+
   const fullPath = path.join(postsDirectory, `${id}${lang ? `.${lang}` : ""}.md`);
   if (!fs.existsSync(fullPath)) {
     return null;

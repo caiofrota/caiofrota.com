@@ -1,12 +1,15 @@
-import { About } from "./_sections/about";
+import { Expertise } from "./_sections/expertise";
 import { Contact } from "./_sections/contact";
-import { Hero } from "./_sections/hero";
+import { HomeHero } from "./_sections/home-hero";
+import { Portfolio } from "./_sections/portfolio";
 
-export default function HomePage() {
+export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params;
   return (
-    <div className="flex flex-col items-center">
-      <Hero />
-      <About />
+    <div className="flex w-full flex-col">
+      <HomeHero locale={locale} />
+      <Portfolio locale={locale} />
+      <Expertise locale={locale} />
       <Contact />
     </div>
   );

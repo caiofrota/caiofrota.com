@@ -9,7 +9,7 @@ const DEFAULT_LOCALE = "en";
 export function proxy(req: NextRequest) {
   const { pathname } = req.nextUrl;
 
-  if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/_next") || pathname.startsWith("/api")) {
+  if (PUBLIC_FILE.test(pathname) || pathname.startsWith("/_next") || pathname.startsWith("/api") || pathname.startsWith("/admin")) {
     return NextResponse.next();
   }
 

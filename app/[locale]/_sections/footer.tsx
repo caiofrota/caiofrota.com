@@ -1,6 +1,7 @@
 "use client";
 import { SocialBar } from "components/social-bar";
 import { useTranslator } from "i18n/provider";
+import { SOCIAL_LINKS } from "lib/social-links";
 
 export function Footer({ ref }: React.PropsWithChildren<{ ref?: React.Ref<HTMLElement> }>) {
   const { t } = useTranslator();
@@ -11,14 +12,7 @@ export function Footer({ ref }: React.PropsWithChildren<{ ref?: React.Ref<HTMLEl
         <p className="text-sm text-center md:text-left text-neutral-700 dark:text-neutral-400">
           {t.footer.madeWith.replace("{{year}}", new Date().getFullYear().toString())}
         </p>
-        <SocialBar
-          socials={[
-            { type: "github", url: "https://github.com/caiofrota" },
-            { type: "instagram", url: "https://instagram.com/jcaiofrota" },
-            { type: "linkedin", url: "https://www.linkedin.com/in/caiofrota/" },
-          ]}
-          showLabels={true}
-        />
+        <SocialBar socials={SOCIAL_LINKS} showLabels />
       </div>
     </footer>
   );

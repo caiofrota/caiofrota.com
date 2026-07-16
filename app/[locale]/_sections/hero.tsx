@@ -4,6 +4,7 @@ import { Pill } from "components/pill";
 import { SocialBar } from "components/social-bar";
 import { motion } from "framer-motion";
 import { useTranslator } from "i18n";
+import { SOCIAL_LINKS } from "lib/social-links";
 import { ArrowRight } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -39,7 +40,7 @@ export function Hero() {
             className="mt-6 flex flex-wrap items-center justify-center md:justify-normal gap-3"
           >
             <Link
-              href="https://github.com/caiofrota"
+              href={SOCIAL_LINKS[0].url}
               target="_blank"
               rel="noreferrer"
               className={`group inline-flex items-center gap-2 rounded-xl bg-linear-to-r cf-accent px-5 py-3 text-sm font-semibold text-white shadow-2xl transition-transform active:scale-[.98]`}
@@ -60,14 +61,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.16 }}
             className="mt-8 flex items-center justify-center md:justify-normal gap-4"
           >
-            <SocialBar
-              socials={[
-                { type: "github", url: "https://github.com/caiofrota" },
-                { type: "instagram", url: "https://instagram.com/jcaiofrota" },
-                { type: "linkedin", url: "https://www.linkedin.com/in/caiofrota/" },
-              ]}
-              showLabels={true}
-            />
+            <SocialBar socials={SOCIAL_LINKS} showLabels />
           </motion.div>
         </div>
 

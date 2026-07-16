@@ -1,9 +1,9 @@
 import type { Type } from "./type";
 
 export const en: Type = {
-  title: "Caio Frota - Software Engineer - Made with love and coffee!",
+  title: "Caio Frota | Senior Software Engineer & Tech Lead",
   description:
-    "My name is Caio Frota. I'm a specialized software engineer. Here you can find a bit about me, my work, and how to get in touch.",
+    "Senior Software Engineer and Tech Lead experienced in backend engineering, web applications, APIs, cloud platforms, and technical leadership.",
   menu: {
     home: "Home",
     about: "About",
@@ -36,10 +36,10 @@ export const en: Type = {
   },
   contact: {
     title: "Get in Touch",
-    subtitle: 'Partnerships, quick consults, complex integrations, or just a simple "Hi"!',
+    subtitle: "Partnerships, consulting, digital products, backend engineering, or just a simple ‘Hi’!",
     kicker: "Let's Chat",
     shortcut: "Also find me on",
-    note: "I also help companies with quick architecture & integrations consulting and performance diagnostics.",
+    note: "I help companies with software architecture, APIs, reliability, and performance diagnostics.",
     form: {
       name: {
         label: "Your Name",
@@ -56,8 +56,12 @@ export const en: Type = {
       send: "Send",
       sending: "Sending...",
       success: "Message sent successfully!",
-      error: "An error occurred while sending the message.",
-      captchaError: "Please complete the CAPTCHA challenge.",
+      errors: {
+        invalidFields: "Review the fields and try again.",
+        rateLimited: "Too many messages in a short time. Try again in a few minutes.",
+        configuration: "Message delivery has not been configured yet.",
+        generic: "The message could not be sent. Please try again.",
+      },
     },
   },
   blog: {
@@ -88,11 +92,21 @@ export const en: Type = {
     title: "Resume",
     subtitle: "Jose Caio Frota",
     kicker: "My Resume",
+    role: "Senior Software Engineer · Tech Lead",
+    contactLine: "contato@caiofrota.com · linkedin.com/in/caiofrota",
+    metadataDescription: "Resume of Caio Frota, Senior Software Engineer and Tech Lead.",
+    downloadLabel: "Download resume as PDF",
+    profileLabel: "Professional profile",
+    highlights: [
+      { value: "15+ years", label: "Software engineering" },
+      { value: "Full stack", label: "Web products, APIs & integrations" },
+      { value: "Remote", label: "Brazil · USA collaboration" },
+    ],
     sections: {
       header: {
         descriptions: [
-          "Software Engineer with over 15 years of experience building scalable web applications and integration platforms. Specialized in TypeScript (JS, React), with solid expertise in APIs, integrations, and healthcare standards (HL7). Proven ability to lead teams and mentor engineers, turning complex requirements into simple and secure solutions.",
-          "Successfully implemented unit testing and CI/CD pipelines for Mirth Connect, increasing reliability and delivery speed in a mission-critical healthcare integration layer.",
+          "Senior Software Engineer and Tech Lead with over 15 years of experience building digital products, scalable web applications, APIs, and integration platforms. Works end to end, from architecture and backend services to interfaces, automation, and continuous delivery, turning complex requirements into simple, secure, and reliable solutions.",
+          "Experienced in leading teams, mentoring engineers, and raising software quality through automated testing, observability, and CI/CD pipelines across different business contexts.",
         ],
         languages: {
           title: "Languages",
@@ -107,7 +121,6 @@ export const en: Type = {
             "TypeScript / JavaScript (10+ years) - Node.js, React, Angular",
             "Java (10+ years)",
             "SQL (10+ years)",
-            "HL7 (4 years)",
             "Python (5 years)",
             "Tailwind CSS (5 years)",
             "HTML5 (10+ years)",
@@ -122,10 +135,11 @@ export const en: Type = {
             "CI/CD: GitHub Actions, Jenkins, GitLab CI",
             "Version Control: Git, GitHub, GitLab, Bitbucket",
             "Databases: MySQL, Postgres, Oracle",
-            "Integration Engine: cURL, Postman, Insomnia, Mirth Connect",
+            "Integration Tools: cURL, Postman, Insomnia",
             "NoSQL: MongoDB, Firebase",
             "Frameworks: Spring Boot, Hibernate, Angular, React",
             "ETL & Analytics tooling",
+            "Healthcare Domain: HL7 / FHIR, Mirth Connect",
           ],
         },
       },
@@ -135,7 +149,7 @@ export const en: Type = {
           {
             company: "Medome",
             location: "Remote - Full-time (Florida, USA)",
-            period: "Since Aug 2021 - Present",
+            period: "Aug 2021 - Present",
             description:
               "A healthtech company leveraging AI and advanced clinical data to improve patient outcomes, helping providers deliver more accurate, efficient, and personalized care.",
             overview: "Healthtech leveraging AI & clinical data",
@@ -152,7 +166,7 @@ export const en: Type = {
             positions: [
               {
                 title: "Integration Tech Lead",
-                period: "Since Aug 2023 - Present",
+                period: "Aug 2023 - Present",
                 responsibilities: [
                   "Lead the integration team, designing and delivering scalable solutions that connect healthcare systems and enterprise platforms.",
                   "Drive development best practices with a focus on APIs, interoperability, and data exchange across complex environments.",
@@ -181,7 +195,7 @@ export const en: Type = {
               "TypeScript",
               "API Development",
               "Java",
-              "Spring boot",
+              "Spring Boot",
               "Hibernate",
               "ETL",
               "Angular",
@@ -203,7 +217,7 @@ export const en: Type = {
           },
           {
             company: "M. Dias Branco",
-            location: "Full-time (CE, Brazil)",
+            location: "Full-time - Fortaleza, CE, Brazil",
             period: "Apr 2008 - Oct 2018 (10 yrs and 5 mos)",
             description:
               "The largest food company in Brazil and a leading producer of pasta, cookies, crackers, and flour in Latin America, with over 20,000 employees and presence in more than 40 countries.",

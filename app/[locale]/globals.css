@@ -1,21 +1,110 @@
 @import "tailwindcss";
 @custom-variant dark (&:where(.dark, .dark *));
 
+@theme inline {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --color-site-canvas: var(--site-canvas);
+  --color-site-surface: var(--site-surface);
+  --color-site-surface-strong: var(--site-surface-strong);
+  --color-site-surface-hover: var(--site-surface-hover);
+  --color-site-nav: var(--site-nav);
+  --color-site-heading: var(--site-heading);
+  --color-site-foreground: var(--site-foreground);
+  --color-site-muted: var(--site-muted);
+  --color-site-border: var(--site-border);
+  --color-site-accent: var(--site-accent);
+  --color-site-on-accent: var(--site-on-accent);
+}
+
+:root {
+  --site-canvas: #eef2f6;
+  --site-surface: rgb(255 255 255 / 0.66);
+  --site-surface-strong: #f8fafc;
+  --site-surface-hover: rgb(255 255 255 / 0.92);
+  --site-nav: rgb(248 250 252 / 0.86);
+  --site-heading: #253247;
+  --site-foreground: #475569;
+  --site-muted: #526075;
+  --site-border: rgb(82 96 117 / 0.24);
+  --site-accent: #0e7490;
+  --site-accent-border: rgb(14 116 144 / 0.42);
+  --site-on-accent: #f8fafc;
+  --site-grid-line: rgb(82 96 117 / 0.13);
+  --site-overlay: rgb(17 24 39 / 0.78);
+  color-scheme: light;
+}
+
+html.dark {
+  --site-canvas: #111827;
+  --site-surface: rgb(30 41 59 / 0.62);
+  --site-surface-strong: #1e293b;
+  --site-surface-hover: rgb(51 65 85 / 0.72);
+  --site-nav: rgb(17 24 39 / 0.86);
+  --site-heading: #d5dde8;
+  --site-foreground: #a8b3c4;
+  --site-muted: #8795a8;
+  --site-border: rgb(148 163 184 / 0.2);
+  --site-accent: #38b6ca;
+  --site-accent-border: rgb(56 182 202 / 0.45);
+  --site-on-accent: #111827;
+  --site-grid-line: rgb(148 163 184 / 0.12);
+  color-scheme: dark;
+}
+
+html {
+  background: var(--site-canvas);
+  scroll-behavior: smooth;
+}
+
+body {
+  background: var(--site-canvas);
+  color: var(--site-foreground);
+}
+
+.site-shell button:not(:disabled),
+.site-shell [role="button"]:not([aria-disabled="true"]) {
+  cursor: pointer;
+}
+
 @layer components {
-  html {
-    scroll-behavior: smooth;
+  .site-grid {
+    background-image:
+      linear-gradient(var(--site-grid-line) 1px, transparent 1px), linear-gradient(90deg, var(--site-grid-line) 1px, transparent 1px);
+    background-size: 44px 44px;
+    mask-image: linear-gradient(to bottom, black, transparent);
+  }
+
+  .theme-control {
+    @apply inline-flex items-center gap-2 rounded-xl border border-site-border bg-site-surface px-3 py-2 text-xs font-semibold text-site-heading transition hover:bg-site-surface-hover;
+  }
+
+  .eyebrow {
+    @apply text-xs font-bold uppercase tracking-[.2em] text-site-accent;
+  }
+
+  .section-title {
+    @apply text-3xl font-black tracking-[-.04em] text-site-heading md:text-4xl;
+  }
+
+  .button-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas dark:bg-cyan-500 dark:text-slate-950 dark:hover:bg-cyan-400;
+  }
+
+  .button-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-site-border bg-site-surface px-5 py-3 text-sm font-bold text-site-heading transition hover:bg-site-surface-hover focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas;
   }
 
   .cf-accent {
-    @apply from-[#253160] via-[#4f4c9a] to-[#318ac7] dark:from-[#0098ac] dark:via-[#318ac7] dark:to-[#4f4c9a];
+    @apply from-cyan-700 via-blue-700 to-violet-700 dark:from-cyan-600 dark:via-blue-600 dark:to-violet-600;
   }
 
   .cf-ring {
-    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-900 dark:focus:ring-slate-100 focus:ring-offset-white dark:focus:ring-offset-slate-900;
+    @apply focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas;
   }
 
   .cf-card {
-    @apply rounded-3xl border border-slate-200 bg-white p-6 shadow-xl shadow-slate-800/5 dark:border-slate-700 dark:bg-slate-800;
+    @apply rounded-3xl border border-site-border bg-site-surface p-6;
+    box-shadow: 0 20px 45px rgb(15 23 42 / 0.08);
   }
 
   .cf-pill {
@@ -23,7 +112,7 @@
   }
 
   .article {
-    @apply flex flex-col gap-3 tracking-wide mb-4;
+    @apply mb-4 flex flex-col gap-3 tracking-wide;
 
     h1 {
       @apply text-4xl font-semibold tracking-tight;
@@ -50,25 +139,88 @@
     }
 
     ol {
-      @apply list-decimal flex flex-col mx-10 gap-2;
+      @apply mx-10 flex list-decimal flex-col gap-2;
     }
 
     ul {
-      @apply list-disc flex flex-col mx-10 gap-2;
+      @apply mx-10 flex list-disc flex-col gap-2;
     }
 
     pre {
-      @apply bg-slate-900 text-slate-100 p-4 rounded-lg overflow-x-auto dark:bg-slate-800 dark:text-slate-200;
+      @apply overflow-x-auto rounded-lg bg-slate-800 p-4 text-slate-100;
     }
 
     blockquote {
-      @apply pl-5 italic border-l-2 border-slate-300 dark:border-slate-700;
+      @apply border-l-2 border-site-border pl-5 italic;
     }
 
     p {
       img {
-        @apply w-full md:w-1/2 mx-auto;
+        @apply mx-auto w-full md:w-1/2;
       }
     }
+  }
+}
+
+/* Compatibility for dark-first utility classes still present in content views.
+   Exact, shell-scoped selectors keep the palette token-driven without broad
+   substring matches or !important overrides. */
+@layer utilities {
+  .site-shell :is(.text-slate-100, .text-slate-200) {
+    color: var(--site-heading);
+  }
+
+  .site-shell .text-slate-300 {
+    color: var(--site-foreground);
+  }
+
+  .site-shell :is(.text-slate-400, .text-slate-500) {
+    color: var(--site-muted);
+  }
+
+  .site-shell :is(.text-cyan-100, .text-cyan-200, .text-cyan-300) {
+    color: var(--site-accent);
+  }
+
+  .site-shell :is(.border-white\/8, .border-white\/10, .border-white\/15) {
+    border-color: var(--site-border);
+  }
+
+  .site-shell :is(.border-cyan-300\/40, .border-cyan-300\/50) {
+    border-color: var(--site-accent-border);
+  }
+
+  .site-shell :is(.bg-slate-950, .bg-slate-900) {
+    background-color: var(--site-surface-strong);
+  }
+
+  .site-shell :is(.bg-slate-900\/45, .bg-white\/5, .bg-white\/\[\.035\]) {
+    background-color: var(--site-surface);
+  }
+
+  .site-shell .bg-white\/10 {
+    background-color: var(--site-border);
+  }
+
+  .site-shell .bg-slate-950\/75 {
+    background-color: var(--site-overlay);
+  }
+
+  .site-shell .bg-slate-950\/75.text-slate-100,
+  .site-shell .cf-accent.text-white {
+    color: #f8fafc;
+  }
+
+  .site-shell :is(.hover\:text-white, .hover\:text-cyan-100, .hover\:text-cyan-200):hover,
+  .site-shell .group:hover .group-hover\:text-cyan-200 {
+    color: var(--site-accent);
+  }
+
+  .site-shell :is(.hover\:border-cyan-300\/40, .hover\:border-white\/30):hover {
+    border-color: var(--site-accent-border);
+  }
+
+  .site-shell :is(.hover\:bg-white\/10, .hover\:bg-white\/\[\.06\]):hover {
+    background-color: var(--site-surface-hover);
   }
 }

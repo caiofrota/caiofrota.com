@@ -1,53 +1,51 @@
-import { ArticleItemList } from "components/article-item-list";
-import { SectionHeading } from "components/section-heading";
-import { getDictionary, normalizeLocale } from "i18n";
-import { getCategorizedPosts } from "lib/articles";
+import { BlogCard } from "components/blog-card";
+import { listPublishedArticles } from "lib/blog";
+import { routeLocale } from "lib/locale";
+import type { Metadata } from "next";
 
-export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }) {
+export const dynamic = "force-dynamic";
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params;
-  const lang = normalizeLocale(locale);
-  const t = getDictionary(lang);
-
+  const current = routeLocale(locale);
+  const isPt = current === "br";
   return {
-    title: t.blog.title,
-    description: t.description,
+    title: isPt ? "Conteúdo técnico" : "Technical writing",
+    description: isPt
+      ? "Artigos de Caio Frota sobre arquitetura de software, backend, cloud e liderança técnica."
+      : "Articles by Caio Frota on software architecture, backend, cloud, and technical leadership.",
     alternates: {
-      canonical: `https://www.caiofrota.com/${locale}/blog`,
+      canonical: `https://www.caiofrota.com/${current}/blog`,
       languages: {
-        "en-US": `https://www.caiofrota.com/en/blog`,
-        "pt-BR": `https://www.caiofrota.com/br/blog`,
+        "pt-BR": "https://www.caiofrota.com/br/blog",
+        "en-US": "https://www.caiofrota.com/en/blog",
       },
     },
   };
 }
 
-type Props = {
-  params: Promise<{ locale: string }>;
-};
-export default async function BlogPage({ params }: Props) {
+export default async function BlogPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
-  const lang = normalizeLocale(locale);
-  const t = getDictionary(lang);
-  const articles = await getCategorizedPosts();
-
+  const articles = await listPublishedArticles(locale);
+  const isPt = routeLocale(locale) === "br";
   return (
-    <div className="scroll-mt-[58px] w-full bg-slate-100 dark:bg-slate-800">
-      <div className="mx-auto max-w-6xl px-4 py-6 pb-10 md:px-6 md:py-10">
-        <SectionHeading title={t.blog.title} />
-        {Object.keys(articles)
-          .filter((category) => articles[category].some((article) => article.lang === lang))
-          .map((category) => (
-            <div key={Math.random()} className="flex flex-col gap-5">
-              <div className="flex flex-col gap-2.5 font-poppins text-lg">
-                <ArticleItemList
-                  articles={articles[category].filter((article, index) => article.lang === lang && index === 0)}
-                  imagePosition="top"
-                />
-                <ArticleItemList articles={articles[category].filter((article, index) => article.lang === lang && index > 0)} />
-              </div>
-            </div>
-          ))}
+    <main className="mx-auto min-h-screen max-w-5xl px-4 py-16 sm:px-6">
+      <p className="eyebrow">{isPt ? "Ideias em construção" : "Ideas in progress"}</p>
+      <h1 className="section-title mt-4 text-slate-900 dark:text-slate-100">{isPt ? "Conteúdo técnico" : "Technical writing"}</h1>
+      <p className="mt-4 max-w-2xl text-lg text-slate-600 dark:text-slate-300">
+        {isPt
+          ? "Arquitetura de software, backend, cloud e decisões práticas de engenharia."
+          : "Software architecture, backend, cloud, and practical engineering decisions."}
+      </p>
+      <div className="mt-10 grid gap-5">
+        {articles.length ? (
+          articles.map((article) => <BlogCard key={article.id} article={article} locale={locale} />)
+        ) : (
+          <p className="rounded-2xl border border-slate-200 p-6 text-slate-600 dark:border-white/10 dark:text-slate-300">
+            {isPt ? "Os próximos artigos estão sendo preparados." : "New articles are being prepared."}
+          </p>
+        )}
       </div>
-    </div>
+    </main>
   );
 }

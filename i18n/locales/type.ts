@@ -53,8 +53,12 @@ export type Type = {
       send: string;
       sending: string;
       success: string;
-      error: string;
-      captchaError: string;
+      errors: {
+        invalidFields: string;
+        rateLimited: string;
+        configuration: string;
+        generic: string;
+      };
     };
   };
   blog: {
@@ -85,6 +89,15 @@ export type Type = {
     title: string;
     subtitle: string;
     kicker: string;
+    role: string;
+    contactLine: string;
+    metadataDescription: string;
+    downloadLabel: string;
+    profileLabel: string;
+    highlights: Array<{
+      value: string;
+      label: string;
+    }>;
     sections: {
       header: {
         descriptions: string[];

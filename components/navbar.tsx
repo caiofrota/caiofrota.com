@@ -13,6 +13,7 @@ type Props = {
 export function Navbar({ navItems, locale }: Props) {
   const [open, setOpen] = useState(false);
   const [elevated, setElevated] = useState(false);
+  const isPortuguese = locale === "br" || locale.toLowerCase().startsWith("pt");
 
   useEffect(() => {
     const onScroll = () => setElevated(window.scrollY > 8);
@@ -27,17 +28,19 @@ export function Navbar({ navItems, locale }: Props) {
 
   return (
     <header
-      className={`sticky top-0 z-40 ${elevated ? "border-b shadow-sm" : "border-b"} border-neutral-200/60 bg-white/80 backdrop-blur supports-backdrop-filter:bg-white/60 dark:border-neutral-800/60 dark:bg-black/40 dark:supports-backdrop-filter:bg-black/30`}
+      className={`sticky top-0 z-40 border-b border-site-border bg-site-nav backdrop-blur ${elevated ? "shadow-lg shadow-slate-900/10 dark:shadow-black/15" : ""}`}
     >
       <div className="mx-auto flex max-w-6xl items-center justify-between px-4 py-3 md:px-6">
         <Link href={`/${locale}/#home`} onClick={handleClick} className="inline-flex items-center gap-2">
-          <span className="font-semibold tracking-tight">CF</span>
+          <span className="inline-flex size-8 items-center justify-center rounded-lg bg-cyan-700 text-xs font-black text-white dark:bg-cyan-500 dark:text-slate-950">
+            CF
+          </span>
         </Link>
         {/* Mobile: hamburger */}
         <button
-          aria-label={open ? "Close" : "Open"}
+          aria-label={open ? (isPortuguese ? "Fechar menu" : "Close menu") : isPortuguese ? "Abrir menu" : "Open menu"}
           onClick={() => setOpen((v) => !v)}
-          className={`md:hidden inline-flex items-center gap-2 rounded-xl border px-3 py-2 text-xs font-semibold transition cf-ring border-neutral-200 bg-white hover:bg-neutral-50 dark:border-neutral-700 dark:bg-neutral-900 dark:hover:bg-neutral-800`}
+          className="theme-control cf-ring md:hidden"
         >
           {open ? <X className="h-4 w-4" /> : <Menu className="h-4 w-4" />}
         </button>
@@ -45,36 +48,32 @@ export function Navbar({ navItems, locale }: Props) {
         {/* Desktop nav */}
         <nav className="hidden items-center gap-4 md:flex">
           {navItems.map((n) => (
-            <Link
-              key={n.href}
-              href={n.href}
-              className="text-sm font-medium text-neutral-800 transition hover:text-neutral-950 dark:text-neutral-200 dark:hover:text-white"
-            >
+            <Link key={n.href} href={n.href} className="text-sm font-medium text-site-foreground transition hover:text-site-accent">
               {n.label}
             </Link>
           ))}
           <LanguageSwitcher />
-          <ThemeSwitch />
+          <ThemeSwitch locale={locale} />
         </nav>
       </div>
 
       {/* Mobile drawer */}
       {open && (
-        <div className="md:hidden border-t border-neutral-200/60 bg-white/95 px-4 py-3 dark:border-neutral-800/60 dark:bg-neutral-950/95">
+        <div className="border-t border-site-border bg-site-nav px-4 py-3 backdrop-blur md:hidden">
           <div className="flex flex-col gap-3">
             {navItems.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
                 onClick={handleClick}
-                className="rounded-xl px-3 py-2 text-sm font-medium text-neutral-900 hover:bg-neutral-100 dark:text-neutral-100 dark:hover:bg-neutral-800"
+                className="rounded-xl px-3 py-2 text-sm font-medium text-site-heading transition hover:bg-site-surface-hover"
               >
                 {n.label}
               </Link>
             ))}
             <div className="flex items-center justify-between gap-3 pt-2">
               <LanguageSwitcher />
-              <ThemeSwitch />
+              <ThemeSwitch locale={locale} />
             </div>
           </div>
         </div>

@@ -54,11 +54,23 @@ html.dark {
 html {
   background: var(--site-canvas);
   scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
 }
 
 body {
   background: var(--site-canvas);
   color: var(--site-foreground);
+}
+
+@keyframes status-in {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+}
+
+.status-message {
+  animation: status-in 220ms ease-out both;
 }
 
 .site-shell button:not(:disabled),
@@ -75,7 +87,7 @@ body {
   }
 
   .theme-control {
-    @apply inline-flex items-center gap-2 rounded-xl border border-site-border bg-site-surface px-3 py-2 text-xs font-semibold text-site-heading transition hover:bg-site-surface-hover;
+    @apply inline-flex items-center gap-2 rounded-xl border border-site-border bg-site-surface px-3 py-2 text-xs font-semibold text-site-heading transition-[color,background-color,border-color,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-site-surface-hover active:translate-y-0 motion-reduce:transform-none;
   }
 
   .eyebrow {
@@ -87,11 +99,11 @@ body {
   }
 
   .button-primary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-700 px-5 py-3 text-sm font-bold text-white transition hover:bg-cyan-600 focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas dark:bg-cyan-500 dark:text-slate-950 dark:hover:bg-cyan-400;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl bg-cyan-700 px-5 py-3 text-sm font-bold text-white transition-[color,background-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:bg-cyan-600 hover:shadow-lg active:translate-y-0 active:scale-[.98] focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas motion-reduce:transform-none dark:bg-cyan-500 dark:text-slate-950 dark:hover:bg-cyan-400;
   }
 
   .button-secondary {
-    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-site-border bg-site-surface px-5 py-3 text-sm font-bold text-site-heading transition hover:bg-site-surface-hover focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas;
+    @apply inline-flex items-center justify-center gap-2 rounded-xl border border-site-border bg-site-surface px-5 py-3 text-sm font-bold text-site-heading transition-[color,background-color,border-color,box-shadow,transform] duration-200 ease-out hover:-translate-y-0.5 hover:border-site-accent/40 hover:bg-site-surface-hover hover:shadow-md active:translate-y-0 active:scale-[.98] focus:outline-none focus:ring-2 focus:ring-site-accent focus:ring-offset-2 focus:ring-offset-site-canvas motion-reduce:transform-none;
   }
 
   .cf-accent {
@@ -159,6 +171,21 @@ body {
         @apply mx-auto w-full md:w-1/2;
       }
     }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

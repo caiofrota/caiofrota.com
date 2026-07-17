@@ -1,3 +1,4 @@
+import { Reveal } from "components/reveal";
 import { getAlternateSlug, getPublishedArticle } from "lib/blog";
 import { localizedPath, oppositeLocale, routeLocale } from "lib/locale";
 import type { Metadata } from "next";
@@ -51,26 +52,32 @@ export default async function ArticlePage({ params }: { params: Promise<{ locale
       <Script id="article-schema" type="application/ld+json">
         {JSON.stringify(jsonLd)}
       </Script>
-      <Link
-        href={localizedPath(current, "blog")}
-        className="text-sm font-bold text-cyan-700 hover:text-cyan-900 dark:text-cyan-400 dark:hover:text-cyan-300"
-      >
-        ← {current === "br" ? "Voltar ao conteúdo" : "Back to writing"}
-      </Link>
-      <header className="mt-10 border-b border-slate-200/80 pb-8 dark:border-slate-700/55">
-        <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-400">
-          {article.category && (
-            <Link href={localizedPath(current, `blog/categories/${article.category.slug}`)}>{article.category.name}</Link>
-          )}
-          {otherSlug && <Link href={localizedPath(other, `blog/${otherSlug}`)}>{other === "br" ? "Português" : "English"}</Link>}
-        </div>
-        <h1 className="mt-5 text-4xl font-black tracking-[-.045em] text-slate-900 dark:text-slate-200 md:text-5xl">{article.title}</h1>
-        <p className="mt-5 text-xl leading-relaxed text-slate-600 dark:text-slate-400">{article.excerpt}</p>
-      </header>
-      <article
-        className="article mt-8 text-slate-700 dark:text-slate-300"
-        dangerouslySetInnerHTML={{ __html: article.contentHtml ?? "" }}
-      />
+      <Reveal variant="fade" distance={0} duration={260}>
+        <Link
+          href={localizedPath(current, "blog")}
+          className="text-sm font-bold text-cyan-700 transition-colors hover:text-cyan-900 dark:text-cyan-400 dark:hover:text-cyan-300"
+        >
+          ← {current === "br" ? "Voltar ao conteúdo" : "Back to writing"}
+        </Link>
+      </Reveal>
+      <Reveal delay={50} distance={12} duration={400}>
+        <header className="mt-10 border-b border-slate-200/80 pb-8 dark:border-slate-700/55">
+          <div className="flex items-center justify-between gap-4 text-xs font-bold uppercase tracking-wide text-cyan-700 dark:text-cyan-400">
+            {article.category && (
+              <Link href={localizedPath(current, `blog/categories/${article.category.slug}`)}>{article.category.name}</Link>
+            )}
+            {otherSlug && <Link href={localizedPath(other, `blog/${otherSlug}`)}>{other === "br" ? "Português" : "English"}</Link>}
+          </div>
+          <h1 className="mt-5 text-4xl font-black tracking-[-.045em] text-slate-900 dark:text-slate-200 md:text-5xl">{article.title}</h1>
+          <p className="mt-5 text-xl leading-relaxed text-slate-600 dark:text-slate-400">{article.excerpt}</p>
+        </header>
+      </Reveal>
+      <Reveal delay={90} distance={10} duration={440} rootMargin="0px 0px -5% 0px">
+        <article
+          className="article mt-8 text-slate-700 dark:text-slate-300"
+          dangerouslySetInnerHTML={{ __html: article.contentHtml ?? "" }}
+        />
+      </Reveal>
     </main>
   );
 }

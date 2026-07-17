@@ -17,11 +17,15 @@ export function SocialBar({ socials, showLabels = false }: Props) {
             href={url}
             target="_blank"
             rel="noreferrer"
-            className="inline-flex items-center gap-2 text-sm transition"
+            className="group inline-flex items-center gap-2 rounded-md text-sm transition-[color,transform] duration-200 hover:-translate-y-0.5 hover:text-site-accent motion-reduce:transform-none cf-ring"
             aria-label={label}
             title={label}
           >
-            <Icon aria-hidden="true" className="h-5 w-5" /> {showLabels && label}
+            <Icon
+              aria-hidden="true"
+              className="h-5 w-5 transition-transform duration-200 group-hover:scale-110 motion-reduce:transform-none motion-reduce:transition-none"
+            />
+            {showLabels && label}
           </Link>
         );
       })}

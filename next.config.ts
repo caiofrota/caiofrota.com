@@ -17,9 +17,17 @@ export default nextConfig;
 
 function mediaRemotePattern(value?: string): RemotePattern | undefined {
   if (!value) return undefined;
+
+  const normalized = value.trim();
+  if (!normalized) return undefined;
+  const hasProtocol = /^[a-z][a-z\d+.-]*:\/\//i.test(normalized);
+  const candidate = hasProtocol ? normalized : `https://${normalized}`;
+
   try {
-    const url = new URL(value);
+    const url = new URL(candidate);
     if (url.protocol !== "http:" && url.protocol !== "https:") return undefined;
+    if (!url.hostname || url.username || url.password || url.search || url.hash) return undefined;
+    if (!hasProtocol && !url.hostname.includes(".") && url.hostname !== "localhost") return undefined;
     const basePath = url.pathname.replace(/\/$/, "");
     return {
       protocol: url.protocol === "https:" ? "https" : "http",

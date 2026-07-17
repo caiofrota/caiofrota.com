@@ -15,7 +15,7 @@ Em produção, `POSTGRES_PORT` não é necessário: somente `DATABASE_URL` é li
 
 O login do painel fica em [`/admin/login`](http://localhost:3000/admin/login). O Postgres é a única fonte pública do blog; apenas traduções com status `PUBLISHED` aparecem no site, nas categorias, na API e no sitemap. Os arquivos Markdown existem somente como fonte para a importação inicial.
 
-Em desenvolvimento, nenhuma variável de mídia é obrigatória. Sem a configuração completa de `R2_*`, os uploads são gravados em `.data/uploads` e servidos pela rota local de mídia. Preencha todas as variáveis `R2_*` para usar o bucket S3/R2.
+Em desenvolvimento, nenhuma variável de mídia é obrigatória. Sem a configuração completa de `R2_*`, os uploads são gravados em `.data/uploads` e servidos pela rota local de mídia. Preencha todas as variáveis `R2_*` para usar o bucket S3/R2. `R2_PUBLIC_BASE_URL` aceita tanto uma URL completa quanto um hostname sem protocolo, que será tratado automaticamente como HTTPS.
 
 ## Produção
 

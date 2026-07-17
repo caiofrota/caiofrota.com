@@ -3,6 +3,7 @@
 import { Check, Copy, ExternalLink, FileImage, FileText, FolderTree, Pencil, Tag, Trash2, type LucideIcon } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import { deleteMediaAsset } from "app/admin/media/actions";
 import { createArticle, deleteArticle } from "app/admin/posts/actions";
 import { deleteCategory, deleteTag } from "app/admin/taxonomy-actions";
 import { AdminBadge, AdminEmptyState } from "components/admin/admin-ui";
@@ -61,6 +62,7 @@ export type MediaTableRow = {
   size: number;
   width: number | null;
   height: number | null;
+  usageCount: number;
   createdAt: string;
 };
 
@@ -216,6 +218,15 @@ const mediaColumns: AdminDataColumn<MediaTableRow>[] = [
     cell: (row) => formatFileSize(row.size),
   },
   {
+    id: "usage",
+    header: "Uso",
+    sortValue: (row) => row.usageCount,
+    cellClassName: "whitespace-nowrap",
+    cell: (row) => (
+      <AdminBadge tone={row.usageCount ? "warning" : "neutral"}>{row.usageCount ? formatMediaUsage(row.usageCount) : "Livre"}</AdminBadge>
+    ),
+  },
+  {
     id: "createdAt",
     header: "Enviado em",
     sortValue: (row) => row.createdAt,
@@ -360,6 +371,11 @@ export function MediaTable({ rows }: { rows: MediaTableRow[] }) {
             <MobileMeta label="Tamanho" value={formatFileSize(row.size)} />
             <MobileMeta label="Enviado em" value={formatDate(row.createdAt)} />
           </div>
+          <MobileDetail label="Uso">
+            <AdminBadge tone={row.usageCount ? "warning" : "neutral"}>
+              {row.usageCount ? formatMediaUsage(row.usageCount) : "Livre para exclusão"}
+            </AdminBadge>
+          </MobileDetail>
         </div>
       )}
       emptyState={
@@ -525,6 +541,19 @@ function MediaActions({ row }: { row: MediaTableRow }) {
           <DisabledAction icon={Copy} label="URL pública não configurada" />
         </>
       )}
+      {row.usageCount ? (
+        <DisabledAction icon={Trash2} label={`${row.filename} está em uso. Remova a imagem dos posts antes de excluí-la.`} />
+      ) : (
+        <ConfirmActionButton
+          action={deleteMediaAsset.bind(null, row.id)}
+          icon={Trash2}
+          triggerLabel={`Excluir ${row.filename}`}
+          title="Excluir esta imagem?"
+          description={`“${row.filename}” será removida permanentemente da biblioteca e do ${row.provider === "local" ? "armazenamento local" : "bucket S3/R2"}.`}
+          confirmLabel="Excluir imagem"
+          tone="danger"
+        />
+      )}
     </ActionGroup>
   );
 }
@@ -637,4 +666,8 @@ function formatFileSize(bytes: number) {
   if (bytes < 1024) return `${bytes} B`;
   if (bytes < 1024 * 1024) return `${Math.round(bytes / 1024)} KB`;
   return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+function formatMediaUsage(value: number) {
+  return value === 1 ? "1 referência" : `${value} referências`;
 }

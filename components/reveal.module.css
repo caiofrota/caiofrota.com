@@ -1,0 +1,41 @@
+.root {
+  --reveal-delay: 0ms;
+  --reveal-distance: 20px;
+  --reveal-duration: 560ms;
+  --reveal-easing: cubic-bezier(0.22, 1, 0.36, 1);
+
+  opacity: 1;
+  transform: none;
+}
+
+.root[data-reveal-state="pending"] {
+  opacity: 0;
+  will-change: opacity, transform;
+}
+
+.root[data-reveal-state="pending"][data-reveal-variant="up"] {
+  transform: translate3d(0, var(--reveal-distance), 0);
+}
+
+.root[data-reveal-state="pending"][data-reveal-variant="scale"] {
+  transform: scale(0.975);
+}
+
+.root[data-reveal-state="revealed"] {
+  opacity: 1;
+  transform: none;
+  transition-property: opacity, transform;
+  transition-duration: var(--reveal-duration);
+  transition-timing-function: var(--reveal-easing);
+  transition-delay: var(--reveal-delay);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .root,
+  .root[data-reveal-state="pending"],
+  .root[data-reveal-state="revealed"] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}

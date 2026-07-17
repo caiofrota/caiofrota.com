@@ -8,6 +8,16 @@ import { env } from "./env";
 export const LOCAL_MEDIA_PROVIDER = "local";
 export const REMOTE_MEDIA_PROVIDER = "s3";
 
+const remoteMediaVariableNames = ["R2_ACCOUNT_ID", "R2_ACCESS_KEY_ID", "R2_SECRET_ACCESS_KEY", "R2_BUCKET", "R2_PUBLIC_BASE_URL"] as const;
+
+type RemoteMediaVariableName = (typeof remoteMediaVariableNames)[number];
+
+export type RemoteMediaStorageStatus = {
+  state: "local" | "incomplete" | "ready";
+  missingVariables: RemoteMediaVariableName[];
+  invalidVariables: RemoteMediaVariableName[];
+};
+
 type MediaReference = {
   id?: string;
   key: string;
@@ -15,10 +25,36 @@ type MediaReference = {
 };
 
 const localUploadRoot = resolve(process.cwd(), ".data", "uploads");
-const remotePublicBaseUrl = validRemoteBaseUrl(env.R2_PUBLIC_BASE_URL);
+const remoteEnvironment = {
+  R2_ACCOUNT_ID: configuredValue(env.R2_ACCOUNT_ID),
+  R2_ACCESS_KEY_ID: configuredValue(env.R2_ACCESS_KEY_ID),
+  R2_SECRET_ACCESS_KEY: configuredValue(env.R2_SECRET_ACCESS_KEY),
+  R2_BUCKET: configuredValue(env.R2_BUCKET),
+  R2_PUBLIC_BASE_URL: configuredValue(env.R2_PUBLIC_BASE_URL),
+};
+const remotePublicBaseUrl = validRemoteBaseUrl(remoteEnvironment.R2_PUBLIC_BASE_URL);
+const remoteMediaStorageStatus = inspectRemoteMediaStorage();
+
+const remoteMediaConfig =
+  remoteMediaStorageStatus.state === "ready"
+    ? {
+        accountId: remoteEnvironment.R2_ACCOUNT_ID!,
+        accessKeyId: remoteEnvironment.R2_ACCESS_KEY_ID!,
+        secretAccessKey: remoteEnvironment.R2_SECRET_ACCESS_KEY!,
+        bucket: remoteEnvironment.R2_BUCKET!,
+      }
+    : undefined;
+
+export function getRemoteMediaStorageStatus(): RemoteMediaStorageStatus {
+  return {
+    state: remoteMediaStorageStatus.state,
+    missingVariables: [...remoteMediaStorageStatus.missingVariables],
+    invalidVariables: [...remoteMediaStorageStatus.invalidVariables],
+  };
+}
 
 export function isRemoteMediaStorageConfigured() {
-  return Boolean(env.R2_ACCOUNT_ID && env.R2_ACCESS_KEY_ID && env.R2_SECRET_ACCESS_KEY && env.R2_BUCKET && remotePublicBaseUrl);
+  return Boolean(remoteMediaConfig);
 }
 
 export function publicMediaUrl(media?: MediaReference | null) {
@@ -36,18 +72,18 @@ export async function uploadMedia(file: File, key: string) {
   const safeKey = safeStorageKey(key);
   const body = Buffer.from(await file.arrayBuffer());
 
-  if (isRemoteMediaStorageConfigured()) {
+  if (remoteMediaConfig) {
     const client = new S3Client({
       region: "auto",
-      endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      endpoint: `https://${remoteMediaConfig.accountId}.r2.cloudflarestorage.com`,
       credentials: {
-        accessKeyId: env.R2_ACCESS_KEY_ID!,
-        secretAccessKey: env.R2_SECRET_ACCESS_KEY!,
+        accessKeyId: remoteMediaConfig.accessKeyId,
+        secretAccessKey: remoteMediaConfig.secretAccessKey,
       },
     });
     await client.send(
       new PutObjectCommand({
-        Bucket: env.R2_BUCKET!,
+        Bucket: remoteMediaConfig.bucket,
         Key: safeKey,
         Body: body,
         ContentType: file.type,
@@ -69,21 +105,25 @@ export async function removeStoredMedia(media: Pick<MediaReference, "key" | "pro
   const safeKey = safeStorageKey(media.key);
 
   if (media.provider === REMOTE_MEDIA_PROVIDER) {
-    if (!isRemoteMediaStorageConfigured()) throw new Error("Armazenamento remoto não configurado.");
+    if (!remoteMediaConfig) throw new Error("Armazenamento remoto não configurado.");
     const client = new S3Client({
       region: "auto",
-      endpoint: `https://${env.R2_ACCOUNT_ID}.r2.cloudflarestorage.com`,
+      endpoint: `https://${remoteMediaConfig.accountId}.r2.cloudflarestorage.com`,
       credentials: {
-        accessKeyId: env.R2_ACCESS_KEY_ID!,
-        secretAccessKey: env.R2_SECRET_ACCESS_KEY!,
+        accessKeyId: remoteMediaConfig.accessKeyId,
+        secretAccessKey: remoteMediaConfig.secretAccessKey,
       },
     });
-    await client.send(new DeleteObjectCommand({ Bucket: env.R2_BUCKET!, Key: safeKey }));
+    await client.send(new DeleteObjectCommand({ Bucket: remoteMediaConfig.bucket, Key: safeKey }));
     return;
   }
 
   if (media.provider !== LOCAL_MEDIA_PROVIDER) throw new Error("Provedor de mídia inválido.");
-  await unlink(localMediaFilePath(safeKey));
+  try {
+    await unlink(localMediaFilePath(safeKey));
+  } catch (error) {
+    if ((error as NodeJS.ErrnoException).code !== "ENOENT") throw error;
+  }
 }
 
 export function localMediaFilePath(key: string) {
@@ -109,12 +149,40 @@ function encodeStorageKey(key: string) {
     .join("/");
 }
 
+function inspectRemoteMediaStorage(): RemoteMediaStorageStatus {
+  const configuredVariables = remoteMediaVariableNames.filter((name) => remoteEnvironment[name]);
+  if (configuredVariables.length === 0) {
+    return { state: "local", missingVariables: [...remoteMediaVariableNames], invalidVariables: [] };
+  }
+
+  const missingVariables = remoteMediaVariableNames.filter((name) => !remoteEnvironment[name]);
+  const invalidVariables: RemoteMediaVariableName[] =
+    remoteEnvironment.R2_PUBLIC_BASE_URL && !remotePublicBaseUrl ? ["R2_PUBLIC_BASE_URL"] : [];
+
+  return {
+    state: missingVariables.length === 0 && invalidVariables.length === 0 ? "ready" : "incomplete",
+    missingVariables,
+    invalidVariables,
+  };
+}
+
+function configuredValue(value?: string) {
+  const normalized = value?.trim();
+  return normalized || undefined;
+}
+
 function validRemoteBaseUrl(value?: string) {
   if (!value) return undefined;
+
+  const hasProtocol = /^[a-z][a-z\d+.-]*:\/\//i.test(value);
+  const candidate = hasProtocol ? value : `https://${value}`;
+
   try {
-    const url = new URL(value);
+    const url = new URL(candidate);
     if (url.protocol !== "http:" && url.protocol !== "https:") return undefined;
-    return value.replace(/\/$/, "");
+    if (!url.hostname || url.username || url.password || url.search || url.hash) return undefined;
+    if (!hasProtocol && !url.hostname.includes(".") && url.hostname !== "localhost") return undefined;
+    return url.toString().replace(/\/$/, "");
   } catch {
     return undefined;
   }

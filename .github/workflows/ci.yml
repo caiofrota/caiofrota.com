@@ -1,0 +1,97 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+    inputs:
+      ref:
+        description: Commit, branch, or tag to validate
+        required: true
+        default: main
+        type: string
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.event.pull_request.number || inputs.ref || github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  required:
+    name: required
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out requested source
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+          ref: ${{ inputs.ref || github.ref }}
+
+      - name: Audit GitHub Actions
+        uses: zizmorcore/zizmor-action@3dc1ecc9bcb9e94e9b2c709687979e1298497054 # v0.6.2
+        with:
+          advanced-security: false
+          annotations: true
+          collect: workflows
+          online-audits: false
+          version: 1.29.0
+
+      - name: Set up pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6
+        with:
+          version: 10.17.0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: pnpm
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Check formatting
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          base_ref="$BASE_SHA"
+          zero_sha="0000000000000000000000000000000000000000"
+          if [ -z "$base_ref" ] || [ "$base_ref" = "$zero_sha" ] || \
+            ! git cat-file -e "$base_ref^{commit}" 2>/dev/null; then
+            if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+              base_ref="HEAD^"
+            else
+              base_ref="HEAD"
+            fi
+          fi
+          mapfile -d '' changed_files < <(git diff --name-only --diff-filter=ACMR -z "$base_ref"...HEAD -- \
+            '*.css' '*.html' '*.js' '*.json' '*.jsx' '*.md' '*.mjs' '*.ts' '*.tsx' '*.yaml' '*.yml')
+          if [ "${#changed_files[@]}" -eq 0 ]; then
+            echo "No changed files supported by the formatter."
+          else
+            pnpm exec prettier --check "${changed_files[@]}"
+          fi
+
+      - name: Check types
+        run: pnpm typecheck
+
+      - name: Build application
+        env:
+          DATABASE_URL: postgresql://ci:ci@127.0.0.1:5432/ci
+          SESSION_SECRET: ci-validation-secret-ci-validation-secret
+        run: pnpm build
+
+      - name: Record validation
+        env:
+          CI_EVENT_NAME: ${{ github.event_name }}
+        run: |
+          {
+            echo "## CI approved"
+            echo "- Git commit: \`$(git rev-parse HEAD)\`"
+            echo "- Trigger: \`$CI_EVENT_NAME\`"
+          } >> "$GITHUB_STEP_SUMMARY"

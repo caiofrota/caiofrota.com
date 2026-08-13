@@ -70,7 +70,8 @@ jobs:
             fi
           fi
           mapfile -d '' changed_files < <(git diff --name-only --diff-filter=ACMR -z "$base_ref"...HEAD -- \
-            '*.css' '*.html' '*.js' '*.json' '*.jsx' '*.md' '*.mjs' '*.ts' '*.tsx' '*.yaml' '*.yml')
+            '*.css' '*.html' '*.js' '*.json' '*.jsx' '*.md' '*.mjs' '*.ts' '*.tsx' '*.yaml' '*.yml' \
+            ':(exclude,glob)**/package-lock.json' ':(exclude,glob)**/pnpm-lock.yaml')
           if [ "${#changed_files[@]}" -eq 0 ]; then
             echo "No changed files supported by the formatter."
           else

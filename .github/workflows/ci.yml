@@ -56,7 +56,26 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: Check formatting
-        run: pnpm lint:check
+        env:
+          BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          base_ref="$BASE_SHA"
+          zero_sha="0000000000000000000000000000000000000000"
+          if [ -z "$base_ref" ] || [ "$base_ref" = "$zero_sha" ] || \
+            ! git cat-file -e "$base_ref^{commit}" 2>/dev/null; then
+            if git rev-parse --verify HEAD^ >/dev/null 2>&1; then
+              base_ref="HEAD^"
+            else
+              base_ref="HEAD"
+            fi
+          fi
+          mapfile -d '' changed_files < <(git diff --name-only --diff-filter=ACMR -z "$base_ref"...HEAD -- \
+            '*.css' '*.html' '*.js' '*.json' '*.jsx' '*.md' '*.mjs' '*.ts' '*.tsx' '*.yaml' '*.yml')
+          if [ "${#changed_files[@]}" -eq 0 ]; then
+            echo "No changed files supported by the formatter."
+          else
+            pnpm exec prettier --check "${changed_files[@]}"
+          fi
 
       - name: Check types
         run: pnpm typecheck

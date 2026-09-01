@@ -93,7 +93,7 @@ export const en: Type = {
     subtitle: "Jose Caio Frota",
     kicker: "My Resume",
     role: "Senior Software Engineer · Tech Lead",
-    contactLine: "contato@caiofrota.com · linkedin.com/in/caiofrota",
+    contactLine: "Email: contato@caiofrota.com · LinkedIn: linkedin.com/in/caiofrota",
     metadataDescription: "Resume of Caio Frota, Senior Software Engineer and Tech Lead.",
     downloadLabel: "Download resume as PDF",
     profileLabel: "Professional profile",
@@ -147,9 +147,38 @@ export const en: Type = {
         title: "Professional Experience",
         jobs: [
           {
+            company: "Estácio University",
+            location: "Brazil",
+            period: "Mar 2026 - Present",
+            description:
+              "Teaching undergraduate courses related to Information Technology, connecting academic foundations with practical applications.",
+            overview: "Higher education in Information Technology",
+            skills: [
+              "Higher Education Teaching",
+              "Software Development",
+              "Information Security",
+              "Programming",
+              "Data Analysis",
+              "Lesson Planning",
+              "Learning Assessment",
+              "Project Mentoring",
+            ],
+            positions: [
+              {
+                title: "University Professor",
+                period: "Mar 2026 - Present",
+                responsibilities: [
+                  "Plans and teaches courses in Information Technology, software development, information security, programming, and data analysis.",
+                  "Designs activities and assessments aligned with course learning objectives.",
+                  "Guides students through academic and practical projects, connecting theoretical concepts with real-world scenarios.",
+                ],
+              },
+            ],
+          },
+          {
             company: "Medome",
             location: "Remote - Full-time (Florida, USA)",
-            period: "Aug 2021 - Present",
+            period: "Aug 2021 - Aug 2026 (5 yrs)",
             description:
               "A healthtech company leveraging AI and advanced clinical data to improve patient outcomes, helping providers deliver more accurate, efficient, and personalized care.",
             overview: "Healthtech leveraging AI & clinical data",
@@ -166,11 +195,11 @@ export const en: Type = {
             positions: [
               {
                 title: "Integration Tech Lead",
-                period: "Aug 2023 - Present",
+                period: "Aug 2023 - Aug 2026 (3 yrs)",
                 responsibilities: [
-                  "Lead the integration team, designing and delivering scalable solutions that connect healthcare systems and enterprise platforms.",
-                  "Drive development best practices with a focus on APIs, interoperability, and data exchange across complex environments.",
-                  "Mentor and guide engineers, fostering clarity, pragmatism, and measurable outcomes.",
+                  "Led the integration team, designing and delivering scalable solutions that connect healthcare systems and enterprise platforms.",
+                  "Drove development best practices with a focus on APIs, interoperability, and data exchange across complex environments.",
+                  "Mentored and guided engineers, fostering clarity, pragmatism, and measurable outcomes.",
                   "Successfully implemented unit testing and CI/CD pipelines for Mirth Connect, improving reliability, quality, and delivery speed in a mission-critical integration layer.",
                 ],
               },

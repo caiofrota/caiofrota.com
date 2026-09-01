@@ -1,5 +1,7 @@
-import { Document, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
+import { Document, Font, Page, StyleSheet, Text, View } from "@react-pdf/renderer";
 import type { Type } from "i18n/locales/type";
+
+Font.registerHyphenationCallback((word) => [word]);
 
 const styles = StyleSheet.create({
   page: { padding: 38, fontSize: 10, color: "#172033", fontFamily: "Helvetica" },
@@ -79,7 +81,7 @@ export function ResumePdf({ resume }: { resume: Type["resume"] }) {
           ))}
         </View>
 
-        <View style={styles.section}>
+        <View style={styles.section} wrap={false}>
           <Text style={styles.heading}>{resume.sections.certifications.title}</Text>
           {resume.sections.certifications.qualifications.map((certification) => (
             <Text key={certification} style={styles.bullet}>

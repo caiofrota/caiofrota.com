@@ -92,7 +92,7 @@ export const pt_BR: Type = {
     subtitle: "Jose Caio Frota",
     kicker: "Meu Currículo",
     role: "Engenheiro de Software Sênior · Tech Lead",
-    contactLine: "contato@caiofrota.com · linkedin.com/in/caiofrota",
+    contactLine: "E-mail: contato@caiofrota.com · LinkedIn: linkedin.com/in/caiofrota",
     metadataDescription: "Currículo de Caio Frota, Engenheiro de Software Sênior e Tech Lead.",
     downloadLabel: "Baixar currículo em PDF",
     profileLabel: "Perfil profissional",
@@ -146,9 +146,38 @@ export const pt_BR: Type = {
         title: "Experiência Profissional",
         jobs: [
           {
+            company: "Universidade Estácio de Sá",
+            location: "Brasil",
+            period: "Mar 2026 - Presente",
+            description:
+              "Atuação no ensino superior em disciplinas relacionadas à Tecnologia da Informação, conectando fundamentos acadêmicos a aplicações práticas.",
+            overview: "Ensino superior em Tecnologia da Informação",
+            skills: [
+              "Docência no Ensino Superior",
+              "Desenvolvimento de Software",
+              "Segurança da Informação",
+              "Programação",
+              "Análise de Dados",
+              "Planejamento de Aulas",
+              "Avaliação da Aprendizagem",
+              "Orientação de Projetos",
+            ],
+            positions: [
+              {
+                title: "Professor Universitário",
+                period: "Mar 2026 - Presente",
+                responsibilities: [
+                  "Planeja e conduz aulas nas áreas de Tecnologia da Informação, desenvolvimento de software, segurança da informação, programação e análise de dados.",
+                  "Elabora atividades e avaliações alinhadas aos objetivos de aprendizagem das disciplinas.",
+                  "Orienta estudantes em projetos acadêmicos e práticos, aproximando os conteúdos teóricos de situações reais.",
+                ],
+              },
+            ],
+          },
+          {
             company: "Medome",
             location: "Remoto - Tempo integral (Flórida, EUA)",
-            period: "Ago 2021 - Presente",
+            period: "Ago 2021 - Ago 2026 (5 anos)",
             description:
               "Uma empresa de saúde que utiliza IA e dados clínicos avançados para melhorar os resultados dos pacientes, ajudando os provedores a oferecer cuidados mais precisos, eficientes e personalizados.",
             overview: "Healthtech utilizando IA e dados clínicos",
@@ -165,12 +194,12 @@ export const pt_BR: Type = {
             positions: [
               {
                 title: "Líder Técnico de Integração",
-                period: "Ago 2023 - Presente",
+                period: "Ago 2023 - Ago 2026 (3 anos)",
                 responsibilities: [
-                  "Liderar a equipe de integração, projetando e entregando soluções escaláveis que conectam sistemas de saúde e plataformas empresariais.",
-                  "Impulsionar as melhores práticas de desenvolvimento com foco em APIs, interoperabilidade e troca de dados em ambientes complexos.",
-                  "Orientar e guiar engenheiros, promovendo clareza, pragmatismo e resultados mensuráveis.",
-                  "Implementar testes automatizados e pipelines de CI/CD para o Mirth Connect, melhorando a confiabilidade, qualidade e velocidade de entrega em uma camada de integração crítica.",
+                  "Liderou a equipe de integração, projetando e entregando soluções escaláveis que conectam sistemas de saúde e plataformas empresariais.",
+                  "Impulsionou as melhores práticas de desenvolvimento com foco em APIs, interoperabilidade e troca de dados em ambientes complexos.",
+                  "Orientou engenheiros, promovendo clareza, pragmatismo e resultados mensuráveis.",
+                  "Implementou testes automatizados e pipelines de CI/CD para o Mirth Connect, melhorando a confiabilidade, qualidade e velocidade de entrega em uma camada de integração crítica.",
                 ],
               },
               {

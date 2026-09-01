@@ -25,16 +25,15 @@ export const siteContent: Record<
   }
 > = {
   br: {
-    role: "Engenheiro de Software Sênior & Tech Lead",
-    intro:
-      "Há mais de 15 anos construo aplicações web, serviços backend e plataformas cloud, transformando requisitos complexos em software confiável e times mais fortes.",
-    availability: "Disponível para oportunidades em engenharia de software e liderança técnica",
+    role: "Engenheiro de Software Sênior",
+    intro: "Há mais de 15 anos projeto, desenvolvo e mantenho serviços backend, aplicações web full-stack, APIs e integrações de sistemas.",
+    availability: "Disponível para oportunidades em engenharia de software",
     nav: { projects: "Cases", resume: "Currículo", blog: "Conteúdo", contact: "Contato" },
     actions: { work: "Ver cases", resume: "Ver currículo", contact: "Vamos conversar", download: "Baixar PDF" },
     proof: [
       { value: "15+", label: "anos construindo software" },
-      { value: "Backend & Cloud", label: "APIs, dados e plataformas" },
-      { value: "Tech Lead", label: "arquitetura e mentoria" },
+      { value: "Backend & APIs", label: "serviços e integrações" },
+      { value: "Full stack", label: "aplicações web e dados" },
     ],
     sections: {
       projects: "Impacto que dá para explicar",
@@ -56,35 +55,41 @@ export const siteContent: Record<
       {
         title: "Entrega contínua em sistemas críticos",
         eyebrow: "CI/CD · qualidade e confiabilidade",
-        summary: "Implementei testes automatizados e pipelines de entrega para sistemas que exigem segurança e rastreabilidade.",
-        impact: "Redução de risco operacional e entregas mais frequentes em ambientes críticos.",
-        stack: ["CI/CD", "Testes", "GitHub Actions", "Automação"],
+        summary: "Implementei testes automatizados e pipelines de CI/CD para o Mirth Connect em uma camada crítica de integração.",
+        impact: "Qualidade de código, confiabilidade e repetibilidade incorporadas ao processo de entrega.",
+        stack: ["CI/CD", "Testes automatizados", "Mirth Connect", "Automação"],
       },
       {
-        title: "Interoperabilidade em saúde",
-        eyebrow: "Healthtech · liderança técnica",
-        summary: "Liderei a evolução de integrações clínicas, conectando sistemas com HL7/FHIR e práticas sustentáveis de engenharia.",
-        impact: "Mais previsibilidade, qualidade e velocidade em uma camada de integração essencial.",
+        title: "APIs e interoperabilidade",
+        eyebrow: "Integrações · dados clínicos",
+        summary: "Projetei e evoluí integrações entre sistemas de saúde e plataformas empresariais com HL7, FHIR e Mirth Connect.",
+        impact: "Experiência prática em troca de dados, padrões de integração e desenvolvimento de APIs.",
         stack: ["TypeScript", "Mirth Connect", "HL7 / FHIR", "APIs"],
       },
     ],
     expertise: [
       { title: "Backend, APIs e integrações", text: "Serviços escaláveis, contratos claros e troca confiável de dados entre sistemas." },
-      { title: "Liderança pragmática", text: "Clareza técnica, decisões sustentáveis e mentoria para times entregarem melhor." },
-      { title: "Cloud e confiabilidade", text: "CI/CD, automação, observabilidade e operação sustentável em produção." },
+      {
+        title: "Full-stack e sistemas empresariais",
+        text: "Backend, interfaces web, acesso a dados e regras de negócio em aplicações de longa duração.",
+      },
+      {
+        title: "Qualidade e entrega",
+        text: "Testes automatizados, revisão de código, CI/CD e práticas voltadas à manutenção do software.",
+      },
     ],
   },
   en: {
-    role: "Senior Software Engineer & Tech Lead",
+    role: "Senior Software Engineer",
     intro:
-      "For more than 15 years, I have built web applications, backend services, and cloud platforms, turning complex requirements into dependable software and stronger teams.",
-    availability: "Open to software engineering and technical leadership opportunities",
+      "For more than 15 years, I have designed, built, and maintained backend services, full-stack web applications, APIs, and system integrations.",
+    availability: "Open to software engineering opportunities",
     nav: { projects: "Cases", resume: "Resume", blog: "Writing", contact: "Contact" },
     actions: { work: "View cases", resume: "View resume", contact: "Let's talk", download: "Download PDF" },
     proof: [
       { value: "15+", label: "years building software" },
-      { value: "Backend & Cloud", label: "APIs, data, and platforms" },
-      { value: "Tech Lead", label: "architecture and mentoring" },
+      { value: "Backend & APIs", label: "services and integrations" },
+      { value: "Full stack", label: "web applications and data" },
     ],
     sections: {
       projects: "Impact you can explain",
@@ -106,15 +111,15 @@ export const siteContent: Record<
       {
         title: "Continuous delivery for critical systems",
         eyebrow: "CI/CD · quality and reliability",
-        summary: "Implemented automated testing and delivery pipelines for systems that demand safety and traceability.",
-        impact: "Lower operational risk and more frequent delivery in critical environments.",
-        stack: ["CI/CD", "Testing", "GitHub Actions", "Automation"],
+        summary: "Implemented automated tests and CI/CD pipelines for Mirth Connect in a critical integration layer.",
+        impact: "Code quality, reliability, and repeatability built into the delivery process.",
+        stack: ["CI/CD", "Automated testing", "Mirth Connect", "Automation"],
       },
       {
-        title: "Healthcare interoperability",
-        eyebrow: "Healthtech · technical leadership",
-        summary: "Led the evolution of clinical integrations, connecting systems with HL7/FHIR and sustainable engineering practices.",
-        impact: "More predictable, higher-quality delivery in an essential integration layer.",
+        title: "APIs and interoperability",
+        eyebrow: "Integrations · clinical data",
+        summary: "Designed and evolved integrations between healthcare systems and enterprise platforms with HL7, FHIR, and Mirth Connect.",
+        impact: "Hands-on experience with data exchange, integration standards, and API development.",
         stack: ["TypeScript", "Mirth Connect", "HL7 / FHIR", "APIs"],
       },
     ],
@@ -123,8 +128,11 @@ export const siteContent: Record<
         title: "Backend, APIs, and integrations",
         text: "Scalable services, clear contracts, and dependable data exchange across systems.",
       },
-      { title: "Pragmatic leadership", text: "Technical clarity, sustainable decisions, and mentoring that help teams deliver better." },
-      { title: "Cloud and reliability", text: "CI/CD, automation, observability, and sustainable production operations." },
+      {
+        title: "Full-stack and enterprise systems",
+        text: "Backend services, web interfaces, data access, and business rules in long-lived applications.",
+      },
+      { title: "Quality and delivery", text: "Automated testing, code review, CI/CD, and practices that keep software maintainable." },
     ],
   },
 };

@@ -1,3 +1,15 @@
+type ResumeJob = {
+  company: string;
+  location: string;
+  period: string;
+  skills: string[];
+  positions: Array<{
+    title: string;
+    period: string;
+    responsibilities: string[];
+  }>;
+};
+
 export type Type = {
   title: string;
   description: string;
@@ -101,37 +113,20 @@ export type Type = {
     sections: {
       header: {
         descriptions: string[];
-        languages: {
-          title: string;
-          list: string[];
-        };
       };
       skills: {
         title: string;
-        languages: {
+        groups: Array<{
           title: string;
           list: string[];
-        };
-        technologiesAndPlatforms: {
-          title: string;
-          list: string[];
-        };
+        }>;
       };
       experience: {
         title: string;
-        jobs: Array<{
-          company: string;
-          location: string;
-          period: string;
-          overview: string;
-          description: string;
-          skills: string[];
-          positions: Array<{
-            title: string;
-            period: string;
-            responsibilities: string[];
-          }>;
-        }>;
+        skillsLabel: string;
+        jobs: ResumeJob[];
+        additionalTitle: string;
+        additionalJobs: ResumeJob[];
       };
       education: {
         title: string;
@@ -143,6 +138,10 @@ export type Type = {
       certifications: {
         title: string;
         qualifications: string[];
+      };
+      languages: {
+        title: string;
+        list: string[];
       };
     };
   };

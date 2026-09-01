@@ -4,29 +4,57 @@ import type { Type } from "i18n/locales/type";
 Font.registerHyphenationCallback((word) => [word]);
 
 const styles = StyleSheet.create({
-  page: { padding: 38, fontSize: 10, color: "#172033", fontFamily: "Helvetica" },
-  name: { fontSize: 26, fontFamily: "Helvetica-Bold", color: "#0f4c5c" },
-  role: { fontSize: 12, color: "#217a8b", marginTop: 5, marginBottom: 5 },
-  contact: { color: "#526075", marginBottom: 4 },
-  highlights: { color: "#526075", marginBottom: 11 },
-  section: { marginTop: 15 },
-  heading: { fontSize: 13, fontFamily: "Helvetica-Bold", color: "#0f4c5c", marginBottom: 7, textTransform: "uppercase" },
-  subheading: { fontSize: 10, fontFamily: "Helvetica-Bold", color: "#34445a", marginTop: 4, marginBottom: 4 },
-  text: { lineHeight: 1.45, marginBottom: 5 },
-  muted: { color: "#526075", marginBottom: 5 },
-  job: { borderLeftWidth: 2, borderLeftColor: "#3ab5c4", paddingLeft: 9, marginBottom: 12 },
-  jobTitle: { fontFamily: "Helvetica-Bold", fontSize: 11 },
-  bullet: { marginLeft: 8, marginBottom: 2, lineHeight: 1.4 },
+  page: { padding: 30, fontSize: 8.8, color: "#172033", fontFamily: "Helvetica" },
+  name: { fontSize: 22, fontFamily: "Helvetica-Bold", color: "#0f4c5c" },
+  role: { fontSize: 11, color: "#217a8b", marginTop: 3, marginBottom: 4 },
+  contact: { color: "#526075" },
+  section: { marginTop: 8 },
+  heading: { fontSize: 11, fontFamily: "Helvetica-Bold", color: "#0f4c5c", marginBottom: 4, textTransform: "uppercase" },
+  text: { lineHeight: 1.3, marginBottom: 3 },
+  skillLine: { lineHeight: 1.25, marginBottom: 2 },
+  label: { fontFamily: "Helvetica-Bold", color: "#34445a" },
+  roleBlock: { marginBottom: 6 },
+  roleTitle: { fontFamily: "Helvetica-Bold", fontSize: 9.8, color: "#172033" },
+  company: { fontFamily: "Helvetica-Bold", marginTop: 1 },
+  muted: { color: "#526075", marginBottom: 2 },
+  bullet: { marginLeft: 8, marginBottom: 1.3, lineHeight: 1.28 },
 });
+
+type Resume = Type["resume"];
+type ResumeJob = Resume["sections"]["experience"]["jobs"][number];
+
+function ExperienceSection({ title, jobs }: { title: string; jobs: ResumeJob[] }) {
+  return (
+    <View style={styles.section}>
+      <Text style={styles.heading} minPresenceAhead={60}>
+        {title}
+      </Text>
+      {jobs.flatMap((job) =>
+        job.positions.map((position) => (
+          <View key={`${job.company}-${position.title}-${position.period}`} style={styles.roleBlock} wrap={false}>
+            <Text style={styles.roleTitle}>{position.title}</Text>
+            <Text style={styles.muted}>
+              <Text style={styles.label}>{job.company}</Text> | {job.location} | {position.period}
+            </Text>
+            {position.responsibilities.map((item) => (
+              <Text key={item} style={styles.bullet}>
+                • {item}
+              </Text>
+            ))}
+          </View>
+        )),
+      )}
+    </View>
+  );
+}
 
 export function ResumePdf({ resume }: { resume: Type["resume"] }) {
   return (
-    <Document title={`${resume.subtitle} - ${resume.title}`} author="Caio Frota">
+    <Document title={`${resume.subtitle} - ${resume.title}`} author="Caio Frota" subject={resume.metadataDescription}>
       <Page size="A4" style={styles.page}>
         <Text style={styles.name}>{resume.subtitle}</Text>
         <Text style={styles.role}>{resume.role}</Text>
         <Text style={styles.contact}>{resume.contactLine}</Text>
-        <Text style={styles.highlights}>{resume.highlights.map((highlight) => `${highlight.value} — ${highlight.label}`).join(" · ")}</Text>
 
         <View style={styles.section}>
           <Text style={styles.heading}>{resume.profileLabel}</Text>
@@ -35,49 +63,33 @@ export function ResumePdf({ resume }: { resume: Type["resume"] }) {
               {description}
             </Text>
           ))}
-          <Text style={styles.subheading}>{resume.sections.header.languages.title}</Text>
-          <Text style={styles.muted}>{resume.sections.header.languages.list.join(" · ")}</Text>
         </View>
 
         <View style={styles.section}>
           <Text style={styles.heading}>{resume.sections.skills.title}</Text>
-          <Text style={styles.subheading}>{resume.sections.skills.languages.title}</Text>
-          <Text style={styles.text}>{resume.sections.skills.languages.list.join(" · ")}</Text>
-          <Text style={styles.subheading}>{resume.sections.skills.technologiesAndPlatforms.title}</Text>
-          <Text style={styles.text}>{resume.sections.skills.technologiesAndPlatforms.list.join(" · ")}</Text>
-        </View>
-
-        <View style={styles.section}>
-          <Text style={styles.heading}>{resume.sections.experience.title}</Text>
-          {resume.sections.experience.jobs.map((job) => (
-            <View key={job.company} style={styles.job}>
-              <Text style={styles.jobTitle}>
-                {job.company} — {job.period}
-              </Text>
-              <Text style={styles.muted}>{job.location}</Text>
-              <Text style={styles.text}>{job.description}</Text>
-              {job.positions.map((position) => (
-                <View key={`${position.title}-${position.period}`}>
-                  <Text style={styles.jobTitle}>
-                    {position.title} — {position.period}
-                  </Text>
-                  {position.responsibilities.map((item) => (
-                    <Text key={item} style={styles.bullet}>
-                      • {item}
-                    </Text>
-                  ))}
-                </View>
-              ))}
-            </View>
+          {resume.sections.skills.groups.map((group) => (
+            <Text key={group.title} style={styles.skillLine}>
+              <Text style={styles.label}>{group.title}: </Text>
+              {group.list.join(", ")}
+            </Text>
           ))}
         </View>
 
-        <View style={styles.section}>
+        <ExperienceSection title={resume.sections.experience.title} jobs={resume.sections.experience.jobs} />
+
+        <ExperienceSection title={resume.sections.experience.additionalTitle} jobs={resume.sections.experience.additionalJobs} />
+
+        <View style={styles.section} wrap={false}>
           <Text style={styles.heading}>{resume.sections.education.title}</Text>
           {resume.sections.education.institutions.map((institution) => (
-            <Text key={institution.name} style={styles.text}>
-              {institution.name}: {institution.qualifications.join(" · ")}
-            </Text>
+            <View key={institution.name}>
+              <Text style={styles.company}>{institution.name}</Text>
+              {institution.qualifications.map((qualification) => (
+                <Text key={qualification} style={styles.bullet}>
+                  • {qualification}
+                </Text>
+              ))}
+            </View>
           ))}
         </View>
 
@@ -88,6 +100,13 @@ export function ResumePdf({ resume }: { resume: Type["resume"] }) {
               • {certification}
             </Text>
           ))}
+        </View>
+
+        <View style={styles.section} wrap={false}>
+          <Text style={styles.skillLine}>
+            <Text style={styles.label}>{resume.sections.languages.title.toUpperCase()}: </Text>
+            {resume.sections.languages.list.join(" | ")}
+          </Text>
         </View>
       </Page>
     </Document>

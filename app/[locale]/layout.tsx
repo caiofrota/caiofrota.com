@@ -1,4 +1,5 @@
 import { Navbar } from "components/navbar";
+import { SiteChrome } from "components/site-chrome";
 import SchemaOrg from "components/schema";
 import { ScrollToTop } from "components/scroll-to-top";
 import { getDictionary, normalizeLocale } from "i18n/i18n";
@@ -98,10 +99,14 @@ export default async function RootLayout({ params, children }: Props) {
         <I18nProvider translator={t} language={normalized}>
           <Providers>
             <main className="site-shell relative min-h-screen bg-site-canvas text-site-foreground selection:bg-site-accent selection:text-site-on-accent">
-              <Navbar navItems={navItems} locale={locale} />
+              <SiteChrome>
+                <Navbar navItems={navItems} locale={locale} />
+              </SiteChrome>
               {children}
-              <Footer />
-              <ScrollToTop aboveFooter={true} />
+              <SiteChrome>
+                <Footer />
+                <ScrollToTop aboveFooter={true} />
+              </SiteChrome>
             </main>
           </Providers>
         </I18nProvider>

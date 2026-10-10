@@ -6,6 +6,7 @@ export const dynamic = "force-dynamic";
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const base = "https://www.caiofrota.com";
   const staticPages: MetadataRoute.Sitemap = [
+    ...["br", "en"].map((locale) => ({ url: `${base}/${locale}/links`, changeFrequency: "monthly" as const, priority: 0.6 })),
     {
       url: `${base}/en`,
       lastModified: new Date(),
@@ -43,12 +44,25 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       priority: 0.5,
     },
   ];
-  const dynamicPages = (await Promise.all(["br", "en"].map(async (locale) => {
-    const [articles, categories] = await Promise.all([listPublishedArticles(locale), listPublishedCategories(locale)]);
-    return [
-      ...articles.map((article) => ({ url: `${base}/${locale}/blog/${article.slug}`, lastModified: article.updatedAt ?? article.publishedAt, changeFrequency: "monthly" as const, priority: 0.7 })),
-      ...categories.map((category) => ({ url: `${base}/${locale}/blog/categories/${category.slug}`, changeFrequency: "weekly" as const, priority: 0.4 })),
-    ];
-  }))).flat();
+  const dynamicPages = (
+    await Promise.all(
+      ["br", "en"].map(async (locale) => {
+        const [articles, categories] = await Promise.all([listPublishedArticles(locale), listPublishedCategories(locale)]);
+        return [
+          ...articles.map((article) => ({
+            url: `${base}/${locale}/blog/${article.slug}`,
+            lastModified: article.updatedAt ?? article.publishedAt,
+            changeFrequency: "monthly" as const,
+            priority: 0.7,
+          })),
+          ...categories.map((category) => ({
+            url: `${base}/${locale}/blog/categories/${category.slug}`,
+            changeFrequency: "weekly" as const,
+            priority: 0.4,
+          })),
+        ];
+      }),
+    )
+  ).flat();
   return [...staticPages, ...dynamicPages];
 }
